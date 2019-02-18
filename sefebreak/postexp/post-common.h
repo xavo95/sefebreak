@@ -10,6 +10,8 @@
 #define post_common_h
 
 #include <stdio.h>
+#include <stdbool.h>
+#include <mach/mach.h>
 
 /*
  * kernel_get_proc_for_task
@@ -50,6 +52,22 @@ const char *sha512OfPath(const char *path);
  *     Compares two files given their locations in the file system.
  */
 bool compareFiles(const char *from, const char *to);
+
+/*
+ * kalloc
+ *
+ * Description:
+ *     Allocate data to kernel memory.
+ */
+uint64_t kalloc(vm_size_t size);
+
+/*
+ * kfree
+ *
+ * Description:
+ *     Free data from kernel memory.
+ */
+void kfree(mach_vm_address_t address, vm_size_t size);
 
 /*
  * kread

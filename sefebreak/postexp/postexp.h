@@ -22,5 +22,6 @@ enum post_exp_t {
 enum post_exp_t root_and_escape(void);
 enum post_exp_t get_kernel_file(void);
 enum post_exp_t initialize_patchfinder64(void);
+enum post_exp_t launch_dropbear(void);
 
 #endif /* postexp_h */

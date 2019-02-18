@@ -21,7 +21,7 @@
 - (IBAction)getRootAndEscape:(id)sender;
 - (IBAction)copyKernel:(id)sender;
 - (IBAction)initializePatchfinder64:(id)sender;
-- (IBAction)sendCompressedKernel:(id)sender;
+- (IBAction)launchSSH:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *kernelSlide;
 @property (weak, nonatomic) IBOutlet UILabel *kernelBase;
 @end
@@ -58,30 +58,8 @@
     initialize_patchfinder64();
 }
 
-- (IBAction)sendCompressedKernel:(id)sender {
-    NSString *emailTitle =  @"The LZSS Kernel";
-    
-    NSString *messageBody = @"Hi ! \n Below I send you the kernelcache";
-    
-    NSArray *toRecipents = [NSArray arrayWithObject:@"xavo95@icloud.com"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *docs = [[[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path];
-    NSString *newPath = [docs stringByAppendingPathComponent:[NSString stringWithFormat:@"kernelcache.dump"]];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:newPath ofType:@"dump"];
-    NSData *myData = [NSData dataWithContentsOfFile: path];
-    
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc addAttachmentData:myData mimeType:@"application/octet-stream" fileName:@"kernelcache.dump"];
-    
-    [mc setToRecipients:toRecipents];
-    
-    [self presentViewController:mc animated:YES completion:NULL];
+- (IBAction)launchSSH:(id)sender {
+    launch_dropbear();
 }
 
 @end

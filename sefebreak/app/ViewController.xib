@@ -73,11 +73,11 @@
                         <action selector="initializePatchfinder64:" destination="-1" eventType="touchUpInside" id="OQL-Ae-ccb"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0S-YL-MX5">
-                    <rect key="frame" x="103" y="360" width="170" height="30"/>
-                    <state key="normal" title="Send lzss kernel to email"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbx-CM-PrA">
+                    <rect key="frame" x="96" y="360" width="183" height="30"/>
+                    <state key="normal" title="Launch SSH(experimental)"/>
                     <connections>
-                        <action selector="sendCompressedKernel:" destination="-1" eventType="touchUpInside" id="0pp-8q-rkm"/>
+                        <action selector="launchSSH:" destination="-1" eventType="touchUpInside" id="O3B-EW-kDc"/>
                     </connections>
                 </button>
             </subviews>
@@ -89,7 +89,9 @@
                 <constraint firstItem="zgo-1U-RXQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Kbm-sS-FhF"/>
                 <constraint firstItem="Zgs-99-GVC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="M4A-vl-qQE"/>
                 <constraint firstItem="Dk2-mW-yEh" firstAttribute="top" secondItem="ttg-vg-pYv" secondAttribute="bottom" constant="8" symbolic="YES" id="NKd-rY-agK"/>
-                <constraint firstItem="F0S-YL-MX5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="103" id="ZLp-uo-nH0"/>
+                <constraint firstItem="qbx-CM-PrA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="96" id="W3A-kX-pJt"/>
+                <constraint firstItem="qbx-CM-PrA" firstAttribute="top" secondItem="7DQ-lB-Cjb" secondAttribute="bottom" constant="8" symbolic="YES" id="WDa-Xs-PZz"/>
+                <constraint firstItem="7DQ-lB-Cjb" firstAttribute="centerX" secondItem="qbx-CM-PrA" secondAttribute="centerX" id="e12-KU-sr1"/>
                 <constraint firstItem="Zgs-99-GVC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="g2z-ix-qWC"/>
                 <constraint firstItem="ttg-vg-pYv" firstAttribute="top" secondItem="Zgs-99-GVC" secondAttribute="bottom" constant="8" symbolic="YES" id="gQw-52-2BA"/>
                 <constraint firstItem="7DQ-lB-Cjb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="108" id="gaF-Jj-hbk"/>
@@ -97,13 +99,11 @@
                 <constraint firstItem="Zgs-99-GVC" firstAttribute="centerX" secondItem="ttg-vg-pYv" secondAttribute="centerX" id="hwY-LE-7pT"/>
                 <constraint firstItem="zgo-1U-RXQ" firstAttribute="baseline" secondItem="X46-jq-mTa" secondAttribute="baseline" id="iQL-Kz-7gJ"/>
                 <constraint firstItem="zgo-1U-RXQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="jAl-eE-f19"/>
-                <constraint firstItem="F0S-YL-MX5" firstAttribute="centerX" secondItem="ttg-vg-pYv" secondAttribute="centerX" id="kVX-X1-ObQ"/>
                 <constraint firstItem="Zgs-99-GVC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="164" id="m7o-Vw-mga"/>
                 <constraint firstItem="X46-jq-mTa" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="mfa-IC-huc"/>
                 <constraint firstItem="ttg-vg-pYv" firstAttribute="centerX" secondItem="Dk2-mW-yEh" secondAttribute="centerX" id="mnr-9f-HHQ"/>
                 <constraint firstItem="WmB-bE-4II" firstAttribute="top" secondItem="zgo-1U-RXQ" secondAttribute="bottom" constant="8" symbolic="YES" id="nLh-Wh-tpY"/>
                 <constraint firstItem="zgo-1U-RXQ" firstAttribute="leading" secondItem="WmB-bE-4II" secondAttribute="leading" id="oi1-5U-fnX"/>
-                <constraint firstItem="F0S-YL-MX5" firstAttribute="top" secondItem="7DQ-lB-Cjb" secondAttribute="bottom" constant="8" symbolic="YES" id="tx2-Ei-akj"/>
                 <constraint firstItem="Dk2-mW-yEh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="145" id="vT5-Je-R0E"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

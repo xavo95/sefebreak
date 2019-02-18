@@ -65,6 +65,16 @@ bool compareFiles(const char *from, const char *to) {
     }
 }
 
+uint64_t kalloc(vm_size_t size) {
+    mach_vm_address_t address = 0;
+    mach_vm_allocate(kernel_task_port, (mach_vm_address_t *)&address, size, VM_FLAGS_ANYWHERE);
+    return address;
+}
+
+void kfree(mach_vm_address_t address, vm_size_t size) {
+    mach_vm_deallocate(kernel_task_port, address, size);
+}
+
 size_t kread(uint64_t address, void *data, size_t size) {
     mach_vm_size_t size_out;
     kern_return_t kr = mach_vm_read_overwrite(kernel_task_port, address,
@@ -115,7 +125,7 @@ void inject_trusts(int pathc, const char *paths[], uint64_t base) {
     fake_chain.count = cnt;
     
     size_t length = (sizeof(fake_chain) + cnt * sizeof(hash_t) + 0x3FFF) & ~0x3FFF;
-    uint64_t kernel_trust = malloc(length);
+    uint64_t kernel_trust = kalloc(length);
     printf("[+] kalloc: 0x%llx", kernel_trust);
     
     printf("[+] writing fake_chain");

@@ -9,6 +9,7 @@
 
 #include "amfi_utils.h"
 #include "patchfinder64.h"
+#include "macho-helper.h"
 #include <stdlib.h>
 #include <string.h>
 #include <mach-o/loader.h>
@@ -26,13 +27,6 @@ uint32_t read_magic(FILE* file, off_t offset) {
     fseek(file, offset, SEEK_SET);
     fread(&magic, sizeof(uint32_t), 1, file);
     return magic;
-}
-
-void *load_bytes(FILE *file, off_t offset, size_t size) {
-    void *buf = calloc(1, size);
-    fseek(file, offset, SEEK_SET);
-    fread(buf, size, 1, file);
-    return buf;
 }
 
 void getSHA256inplace(const uint8_t* code_dir, uint8_t *out) {
