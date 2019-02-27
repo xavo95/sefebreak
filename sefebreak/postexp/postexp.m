@@ -190,8 +190,8 @@ enum post_exp_t launch_dropbear() {
     FILE *motd = fopen("/var/motd", "w");
     struct utsname ut;
     uname(&ut);
-    fprintf(motd, "A12 dropbear exec by @xavo95\nnjkkk");
-    fprintf(motd, "%s %s %s %s %s", ut.sysname, ut.nodename, ut.release, ut.version, ut.machine);
+    fprintf(motd, "A12 dropbear exec by @xavo95\n");
+    fprintf(motd, "%s %s %s %s %s\n", ut.sysname, ut.nodename, ut.release, ut.version, ut.machine);
     fclose(motd);
     chmod("/var/motd", 0777);
     
