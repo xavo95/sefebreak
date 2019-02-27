@@ -78,12 +78,11 @@ void kfree(mach_vm_address_t address, vm_size_t size);
 size_t kread(uint64_t where, void *p, size_t size);
 
 /*
- * inject_trusts
+ * entitle_pid
  *
  * Description:
  *     Injects to trustcache.
  */
-void inject_trusts(int pathc, const char *paths[], uint64_t base);
-
+bool entitle_pid(uint64_t task, const char *ent, bool val);
 
 #endif /* post_common_h */

@@ -21,7 +21,8 @@
 - (IBAction)getRootAndEscape:(id)sender;
 - (IBAction)copyKernel:(id)sender;
 - (IBAction)initializePatchfinder64:(id)sender;
-- (IBAction)launchSSH:(id)sender;
+- (IBAction)startBootstrap:(id)sender;
+- (IBAction)doCleanup:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *kernelSlide;
 @property (weak, nonatomic) IBOutlet UILabel *kernelBase;
 @end
@@ -41,8 +42,8 @@
     if (!ok) {
         ERROR("Error getting kernel slide");
     } else {
-        _kernelSlide.text = [NSString stringWithFormat:@"0x%016llx", kernel_slide];
-        _kernelBase.text = [NSString stringWithFormat:@"0x%016llx", STATIC_ADDRESS(kernel_base) + kernel_slide];
+        [_kernelSlide setText:[NSString stringWithFormat:@"0x%016llx", kernel_slide]];
+        [_kernelBase setText:[NSString stringWithFormat:@"0x%016llx", STATIC_ADDRESS(kernel_base) + kernel_slide]];
     }
 }
 
@@ -58,8 +59,12 @@
     initialize_patchfinder64();
 }
 
-- (IBAction)launchSSH:(id)sender {
+- (IBAction)startBootstrap:(id)sender {
     launch_dropbear();
+}
+
+- (IBAction)doCleanup:(id)sender {
+    cleanup();
 }
 
 @end

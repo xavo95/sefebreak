@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <unistd.h>
 #import <sys/stat.h>
+#import <sys/utsname.h>
 #include <spawn.h>
 
 #include "kernel_memory.h"
@@ -27,9 +28,27 @@
 #include "patchfinder64.h"
 #include "macho-helper.h"
 #include "lzssdec.hpp"
+#include "untar.h"
+#include "amfi_utils.h"
 
 NSString *binPath = @"/var/containers/Bundle/iosbinpack64";
 NSString *kernelPath = @"/System/Library/Caches/com.apple.kernelcaches/kernelcache";
+
+int launch(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env) {
+    pid_t pd;
+    const char* args[] = {binary, arg1, arg2, arg3, arg4, arg5, arg6,  NULL};
+    
+    int rv = posix_spawn(&pd, binary, NULL, NULL, (char **)&args, env);
+    if (rv) {
+        ERROR("error spawing process %s", strerror(rv));
+        return rv;
+    }
+    
+    int a = 0;
+    waitpid(pd, &a, 0);
+    
+    return WEXITSTATUS(a);
+}
 
 int launchAsPlatform(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env) {
     pid_t pd;
@@ -40,10 +59,15 @@ int launchAsPlatform(char *binary, char *arg1, char *arg2, char *arg3, char *arg
     posix_spawnattr_setflags(&attr, POSIX_SPAWN_START_SUSPENDED); //this flag will make the created process stay frozen until we send the CONT signal. This so we can platformize it before it launches.
 
     int rv = posix_spawn(&pd, binary, NULL, &attr, (char **)&args, env);
-    char *err = strerror(rv);
-    if (rv) return rv;
+    if (rv) {
+        ERROR("error spawing process %s", strerror(rv));
+        return rv;
+    }
 
-    platformize(pd);
+    kern_return_t kret;
+    mach_port_t task;
+    kret = task_for_pid(mach_host_self(), pd, &task);
+    platformize(task);
 
     kill(pd, SIGCONT); //continue
 
@@ -74,6 +98,7 @@ enum post_exp_t root_and_escape(void) {
     unsandbox(current_task);
     
     setcsflags(current_task);
+    platformize(current_task);
     INFO("the application is now a platform binary");
     
     return NO_ERROR;
@@ -134,31 +159,54 @@ enum post_exp_t initialize_patchfinder64() {
 
 enum post_exp_t launch_dropbear() {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if (![fileManager fileExistsAtPath:binPath]) {
-        mkdir((char *)[binPath UTF8String], 0777);
-        INFO("installing ios binary pack...");
-        
-        NSError *error;
-        [fileManager copyItemAtPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"dropbear"] toPath:[binPath stringByAppendingPathComponent:@"dropbear"] error:&error];
-        
-        //        chdir("/var/containers/Bundle/");
-        //        FILE *bootstrap = fopen((char*)in_bundle("tars/iosbinpack.tar"), "r");
-        //        untar(bootstrap, "/var/containers/Bundle/");
-        //        fclose(bootstrap);
-        
-        chmod([[binPath stringByAppendingPathComponent:@"dropbear"] UTF8String], 0777);
-        INFO("installed Dropbear SSH!");
+    if ([fileManager fileExistsAtPath:binPath]) {
+        [fileManager removeItemAtPath:binPath error:NULL];
     }
+    mkdir((char *)[binPath UTF8String], 0777);
+    INFO("installing ios binary pack...");
+    
+    chdir("/var/containers/Bundle/");
+    FILE *bootstrap = fopen([[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"iosbinpack.tar"] UTF8String], "r");
+    untar(bootstrap, "/var/containers/Bundle/");
+    fclose(bootstrap);
+    
+    [fileManager removeItemAtPath:[binPath stringByAppendingString:@"usr/local/bin/dropbear"] error:NULL];
+    [fileManager removeItemAtPath:[binPath stringByAppendingString:@"usr/bin/scp"] error:NULL];
+    
+    chdir("/var/containers/Bundle/");
+    FILE *fixed_dropbear = fopen([[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"dropbear.v2018.76.tar"] UTF8String], "r");
+    untar(fixed_dropbear, "/var/containers/Bundle/");
+    fclose(fixed_dropbear);
+    INFO("installed Dropbear SSH!");
 
     kernel_call_init();
-    const char *paths[] = {[[binPath stringByAppendingString:@"/dropbear"] UTF8String]};
-    inject_trusts(1, paths, STATIC_ADDRESS(kernel_base) + kernel_slide);
+    trustbin("/var/containers/Bundle/iosbinpack64", STATIC_ADDRESS(kernel_base) + kernel_slide);
     kernel_call_deinit();
     
-//    launchAsPlatform([[binPath stringByAppendingPathComponent:@"dropbear"] UTF8String], "-R", "-E", NULL, NULL, NULL, NULL, NULL);
-    launchAsPlatform("uname", "-a", NULL, NULL, NULL, NULL, NULL, NULL);
+    mkdir("/var/dropbear", 0777);
+    [fileManager removeItemAtPath:@"/var/profile" error:NULL];
+    [fileManager removeItemAtPath:@"/var/motd" error:NULL];
+    chmod("/var/profile", 0777);
+    FILE *motd = fopen("/var/motd", "w");
+    struct utsname ut;
+    uname(&ut);
+    fprintf(motd, "A12 dropbear exec by @xavo95\nnjkkk");
+    fprintf(motd, "%s %s %s %s %s", ut.sysname, ut.nodename, ut.release, ut.version, ut.machine);
+    fclose(motd);
+    chmod("/var/motd", 0777);
+    
+    [fileManager copyItemAtPath:@"/var/containers/Bundle/iosbinpack64/etc/profile" toPath:@"/var/profile" error:NULL];
+    [fileManager copyItemAtPath:@"/var/containers/Bundle/iosbinpack64/etc/motd" toPath:@"/var/motd" error:NULL];
+    
+    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-SEGV", "dropbear", NULL, NULL, NULL, NULL, NULL);
+    launchAsPlatform([[binPath stringByAppendingPathComponent:@"usr/local/bin/dropbear"] UTF8String], "-R", "-E", "-p", "22", "-p", "2222", NULL);
     
     return NO_ERROR;
 }
 
+void cleanup(void) {
+    term_kernel();
+    restore_csflags(current_task);
+    sandbox(current_task);
+    unroot(current_task);
+}

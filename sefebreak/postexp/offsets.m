@@ -16,6 +16,7 @@
 
 #import "offsets.h"
 #import "offsetof.h"
+#import "log.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -144,7 +145,7 @@ int _kstruct_offsets_12_0[] = {
 
 int _koffset(enum _kstruct_offset offset) {
     if (_offsets == NULL) {
-        printf("need to call offsets_init() prior to querying offsets\n");
+        INFO("need to call offsets_init() prior to querying offsets");
         return 0;
     }
     return _offsets[offset];
@@ -152,7 +153,7 @@ int _koffset(enum _kstruct_offset offset) {
 
 void _offsets_init() {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"12.0")) {
-        printf("[i] offsets selected for iOS 12.0 or above\n");
+        INFO("offsets selected for iOS 12.0 or above");
         _offsets = _kstruct_offsets_12_0;
         
         // other struct offsets
@@ -182,13 +183,13 @@ void _offsets_init() {
         }
     }
     else if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.3")) {
-        printf("[i] offsets selected for iOS 11.3 or above\n");
+        INFO("offsets selected for iOS 11.3 or above");
         _offsets = _kstruct_offsets_11_3;
     } else if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0")) {
-        printf("[i] offsets selected for iOS 11.0 to 11.2.6\n");
+        INFO("offsets selected for iOS 11.0 to 11.2.6");
         _offsets = _kstruct_offsets_11_0;
     } else {
-        printf("[-] iOS version too low, 11.0 required\n");
+        ERROR("iOS version too low, 11.0 required");
         exit(EXIT_FAILURE);
     }
 }

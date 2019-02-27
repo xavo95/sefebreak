@@ -9,12 +9,6 @@
 #include "macho-helper.h"
 #include <stdlib.h>
 
-/*
- * load_bytes
- *
- * Description:
- *     Load bytes from file from starting offset and specific size.
- */
 void *load_bytes(FILE *obj_file, off_t offset, uint32_t size) {
     void *buf = calloc(1, size);
     fseek(obj_file, offset, SEEK_SET);
@@ -22,12 +16,6 @@ void *load_bytes(FILE *obj_file, off_t offset, uint32_t size) {
     return buf;
 }
 
-/*
- * find_macho_header
- *
- * Description:
- *     Find the macho header.
- */
 uint32_t find_macho_header(FILE *file) {
     uint32_t off = 0;
     uint32_t *magic = load_bytes(file, off, sizeof(uint32_t));

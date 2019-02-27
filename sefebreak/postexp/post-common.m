@@ -87,67 +87,26 @@ size_t kread(uint64_t address, void *data, size_t size) {
     return size_out;
 }
 
-void inject_trusts(int pathc, const char *paths[], uint64_t base) {
-    INFO("injecting into trust cache...");
-        
-    static uint64_t tc = 0;
-    if (tc == 0) {
-        /* loaded_trust_caches
-         iPhone11,2-4-6: 0xFFFFFFF008F702C8
-         iPhone11,8: 0xFFFFFFF008ED42C8
-         */
-        tc = base + (0xFFFFFFF008F702C8 - 0xFFFFFFF007004000);
-    }
+bool entitle_pid(uint64_t task, const char *ent, bool val) {
+    if (!task) return false;
     
-    INFO("trust cache: 0x%llx", tc);
+    uint64_t proc = kernel_get_proc_for_task(task);
+    uint64_t ucred = kernel_read64(proc + off_p_ucred);
+    uint64_t cr_label = kernel_read64(ucred + off_ucred_cr_label);
+    uint64_t entitlements = kernel_read64(cr_label + off_amfi_slot);
     
-    struct trust_chain fake_chain;
-    fake_chain.next = kernel_read64(tc);
-#if (0)
-    *(uint64_t *)&fake_chain.uuid[0] = 0xabadbabeabadbabe;
-    *(uint64_t *)&fake_chain.uuid[8] = 0xabadbabeabadbabe;
-#else
-    arc4random_buf(&fake_chain.uuid, 16);
-#endif
-    
-    int cnt = 0;
-    uint8_t hash[CC_SHA256_DIGEST_LENGTH];
-    hash_t *allhash = malloc(sizeof(hash_t) * pathc);
-    for (int i = 0; i != pathc; ++i) {
-        uint8_t *cd = getCodeDirectory(paths[i]);
-        if (cd != NULL) {
-            getSHA256inplace(cd, hash);
-            memmove(allhash[cnt], hash, sizeof(hash_t));
-            ++cnt;
-        }
-    }
-    
-    fake_chain.count = cnt;
-    
-    size_t length = (sizeof(fake_chain) + cnt * sizeof(hash_t) + 0x3FFF) & ~0x3FFF;
-    uint64_t kernel_trust = kalloc(length);
-    printf("[+] kalloc: 0x%llx", kernel_trust);
-    
-    printf("[+] writing fake_chain");
-    kernel_write(kernel_trust, &fake_chain, sizeof(fake_chain));
-    printf("[+] writing allhash");
-    kernel_write(kernel_trust + sizeof(fake_chain), allhash, cnt * sizeof(hash_t));
-    printf("[+] writing trust cache");
-    
-#if (0)
-    kernel_write64(tc, kernel_trust);
-#else
-    /* load_trust_cache
-     iPhone11,2-4-6: 0xFFFFFFF007B80504
-     iPhone11,8: 0xFFFFFFF007B50504
-     */
-    uint64_t f_load_trust_cache = base + (0xFFFFFFF007B80504 - 0xFFFFFFF007004000);
-    uint32_t ret = kernel_call_7(f_load_trust_cache, 3,
-                                 kernel_trust,
-                                 length,
-                                 0);
-    printf("[+] load_trust_cache: 0x%x", ret);
-#endif
-    
-    printf("[+] injected trust cache");
+    //    TODO: Generate osobject from XNU SOurce
+//    if (OSDictionary_GetItem(entitlements, ent) == 0) {
+//        INFO("setting Entitlements...\n");
+//        uint64_t entval = OSDictionary_GetItem(entitlements, ent);
+//
+//        INFO("before: %s is 0x%llx\n", ent, entval);
+//        OSDictionary_SetItem(entitlements, ent, (val) ? Find_OSBoolean_True() : Find_OSBoolean_False());
+//
+//        entval = OSDictionary_GetItem(entitlements, ent);
+//        INFO("after: %s is 0x%llx\n", ent, entval);
+//
+//        return (entval) ? YES : NO;
+//    }
+    return true;
 }

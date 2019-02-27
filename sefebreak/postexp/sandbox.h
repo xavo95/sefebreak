@@ -52,4 +52,20 @@ bool setcsflags(uint64_t task);
  */
 void platformize(uint64_t task);
 
+/*
+ * restore_csflags
+ *
+ * Description:
+ *     Restore the csflags to the previous step.
+ */
+void restore_csflags(uint64_t task);
+
+/*
+ * platformize_pid
+ *
+ * Description:
+ *     Modify our proc struc to become a platform binary.
+ */
+void platformize_pid(pid_t pid);
+
 #endif /* sandbox_h */

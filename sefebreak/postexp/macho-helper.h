@@ -11,8 +11,20 @@
 
 #include <stdio.h>
 
+/*
+ * load_bytes
+ *
+ * Description:
+ *     Load bytes from file from starting offset and specific size.
+ */
 void *load_bytes(FILE *obj_file, off_t offset, uint32_t size);
 
+/*
+ * find_macho_header
+ *
+ * Description:
+ *     Find the macho header.
+ */
 uint32_t find_macho_header(FILE *file);
 
 #endif /* macho_helper_h */
