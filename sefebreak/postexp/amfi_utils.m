@@ -16,6 +16,7 @@
 #include "post-common.h"
 #include <stdlib.h>
 #include <string.h>
+#import <sys/utsname.h>
 #include <mach-o/loader.h>
 #include <mach-o/fat.h>
 #include <sys/stat.h>
@@ -168,13 +169,19 @@ int strtail(const char *str, const char *tail)
 void inject_trusts(int pathc, NSMutableArray *paths, uint64_t base) {
     INFO("injecting into trust cache...");
     
+    struct utsname ut;
+    uname(&ut);
     static uint64_t tc = 0;
     if (tc == 0) {
         /* loaded_trust_caches
          iPhone11,2-4-6: 0xFFFFFFF008F702C8
          iPhone11,8: 0xFFFFFFF008ED42C8
          */
-        tc = base + (0xFFFFFFF008F702C8 - 0xFFFFFFF007004000);
+        if(strcmp("iPhone11,8", ut.machine) == 0) {
+            tc = base + (0xFFFFFFF008ED42C8 - 0xFFFFFFF007004000);
+        } else {
+            tc = base + (0xFFFFFFF008F702C8 - 0xFFFFFFF007004000);
+        }
     }
     
     INFO("trust cache: 0x%llx", tc);
@@ -215,11 +222,16 @@ void inject_trusts(int pathc, NSMutableArray *paths, uint64_t base) {
 #if (0)
     kernel_write64(tc, kernel_trust);
 #else
+    uint64_t f_load_trust_cache = 0;
     /* load_trust_cache
      iPhone11,2-4-6: 0xFFFFFFF007B80504
      iPhone11,8: 0xFFFFFFF007B50504
      */
-    uint64_t f_load_trust_cache = base + (0xFFFFFFF007B80504 - 0xFFFFFFF007004000);
+    if(strcmp("iPhone11,8", ut.machine) == 0) {
+        f_load_trust_cache = base + (0xFFFFFFF007B50504 - 0xFFFFFFF007004000);
+    } else {
+        f_load_trust_cache = base + (0xFFFFFFF007B80504 - 0xFFFFFFF007004000);
+    }
     uint32_t ret = kernel_call_7(f_load_trust_cache, 3,
                                  kernel_trust,
                                  length,
