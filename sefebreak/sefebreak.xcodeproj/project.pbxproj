@@ -31,13 +31,13 @@
 		91580DB12208D9AC00729186 /* post-common.m in Sources */ = {isa = PBXBuildFile; fileRef = 91580DB02208D9AC00729186 /* post-common.m */; };
 		91580DB42208DA4600729186 /* sandbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 91580DB32208DA4600729186 /* sandbox.c */; };
 		91580DB72208DB8300729186 /* postexp.m in Sources */ = {isa = PBXBuildFile; fileRef = 91580DB62208DB8300729186 /* postexp.m */; };
-		91580DC92213817000729186 /* patchfinder64.c in Sources */ = {isa = PBXBuildFile; fileRef = 91580DC72213816F00729186 /* patchfinder64.c */; };
 		91580DD22225DE8C00729186 /* amfi_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 91580DD12225DE8C00729186 /* amfi_utils.m */; };
 		91580DDC2226844500729186 /* macho-helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 91580DDB2226844500729186 /* macho-helper.c */; };
 		91580DDF222688B800729186 /* lzssdec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91580DDE222688B800729186 /* lzssdec.cpp */; };
 		91580DE52226C66700729186 /* untar.c in Sources */ = {isa = PBXBuildFile; fileRef = 91580DE42226C66700729186 /* untar.c */; };
 		91580DE92226CB9900729186 /* dropbear.v2018.76.tar in Resources */ = {isa = PBXBuildFile; fileRef = 91580DE72226CB8000729186 /* dropbear.v2018.76.tar */; };
 		91580DEB2226D2D500729186 /* iosbinpack.tar in Resources */ = {isa = PBXBuildFile; fileRef = 91580DEA2226D2D500729186 /* iosbinpack.tar */; };
+		9174869E22286CB3008601C7 /* patchfinder64.c in Sources */ = {isa = PBXBuildFile; fileRef = 9174869C22286CB3008601C7 /* patchfinder64.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,8 +90,6 @@
 		91580DB32208DA4600729186 /* sandbox.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sandbox.c; sourceTree = "<group>"; };
 		91580DB52208DB8300729186 /* postexp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = postexp.h; sourceTree = "<group>"; };
 		91580DB62208DB8300729186 /* postexp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = postexp.m; sourceTree = "<group>"; };
-		91580DC72213816F00729186 /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = patchfinder64.c; sourceTree = "<group>"; };
-		91580DC82213816F00729186 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		91580DD02225DE8C00729186 /* amfi_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfi_utils.h; sourceTree = "<group>"; };
 		91580DD12225DE8C00729186 /* amfi_utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = amfi_utils.m; sourceTree = "<group>"; };
 		91580DDA2226844500729186 /* macho-helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "macho-helper.h"; sourceTree = "<group>"; };
@@ -102,6 +100,8 @@
 		91580DE42226C66700729186 /* untar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = untar.c; sourceTree = "<group>"; };
 		91580DE72226CB8000729186 /* dropbear.v2018.76.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = dropbear.v2018.76.tar; sourceTree = "<group>"; };
 		91580DEA2226D2D500729186 /* iosbinpack.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = iosbinpack.tar; sourceTree = "<group>"; };
+		9174869C22286CB3008601C7 /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = patchfinder64.c; path = patchfinder64/patchfinder64.c; sourceTree = "<group>"; };
+		9174869D22286CB3008601C7 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = patchfinder64.h; path = patchfinder64/patchfinder64.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				91580DE62226CAC500729186 /* tars */,
-				91580DC6221380FD00729186 /* patchfinder */,
+				9174869B22286C89008601C7 /* patchfinder64 */,
 				91580D8622077A1C00729186 /* postexp */,
 				5581FD0921D44A46009FC879 /* app */,
 				5581FD1D21D6A02A009FC879 /* headers */,
@@ -236,15 +236,6 @@
 			path = postexp;
 			sourceTree = "<group>";
 		};
-		91580DC6221380FD00729186 /* patchfinder */ = {
-			isa = PBXGroup;
-			children = (
-				91580DC72213816F00729186 /* patchfinder64.c */,
-				91580DC82213816F00729186 /* patchfinder64.h */,
-			);
-			path = patchfinder;
-			sourceTree = "<group>";
-		};
 		91580DE62226CAC500729186 /* tars */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +243,15 @@
 				91580DE72226CB8000729186 /* dropbear.v2018.76.tar */,
 			);
 			path = tars;
+			sourceTree = "<group>";
+		};
+		9174869B22286C89008601C7 /* patchfinder64 */ = {
+			isa = PBXGroup;
+			children = (
+				9174869C22286CB3008601C7 /* patchfinder64.c */,
+				9174869D22286CB3008601C7 /* patchfinder64.h */,
+			);
+			name = patchfinder64;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,9 +348,9 @@
 				91580DA522078EE000729186 /* root.c in Sources */,
 				55F5FBF921BB2C3300F3AB28 /* main.m in Sources */,
 				91580DAE2208D8B200729186 /* offsets.m in Sources */,
+				9174869E22286CB3008601C7 /* patchfinder64.c in Sources */,
 				91580DDC2226844500729186 /* macho-helper.c in Sources */,
 				55F5FBEB21BB2C3200F3AB28 /* AppDelegate.m in Sources */,
-				91580DC92213817000729186 /* patchfinder64.c in Sources */,
 				55F5FBEE21BB2C3200F3AB28 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,7 +517,7 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/voucher_swap",
 					"$(SRCROOT)/postexp",
-					"$(SRCROOT)/patchfinder",
+					"$(SRCROOT)/patchfinder64",
 				);
 				VALID_ARCHS = "arm64e arm64 armv7 armv7s";
 			};
@@ -550,7 +550,7 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/voucher_swap",
 					"$(SRCROOT)/postexp",
-					"$(SRCROOT)/patchfinder",
+					"$(SRCROOT)/patchfinder64",
 				);
 				VALID_ARCHS = "arm64e arm64 armv7 armv7s";
 			};

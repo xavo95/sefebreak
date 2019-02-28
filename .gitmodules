@@ -1,0 +1,6 @@
+[submodule "sefebreak/patchfinder64"]
+	path = sefebreak/patchfinder64
+	url = https://github.com/pwn20wndstuff/patchfinder64.git
+[submodule "sefebreak/azad_exploit"]
+	path = sefebreak/azad_exploit
+	url = https://github.com/xavo95/voucher_swap.git
