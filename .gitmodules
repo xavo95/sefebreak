@@ -7,3 +7,6 @@
 [submodule "sefebreak/postexp"]
 	path = sefebreak/postexp
 	url = https://github.com/xavo95/postexp.git
+[submodule "sefebreak/payloads_source/jailbreakd"]
+	path = sefebreak/payloads_source/jailbreakd
+	url = https://github.com/xavo95/jailbreakd.git
