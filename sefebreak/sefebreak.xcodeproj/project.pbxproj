@@ -39,12 +39,20 @@
 		917486CE222870CB008601C7 /* voucher_swap.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486BE222870CB008601C7 /* voucher_swap.c */; };
 		917486CF222870CB008601C7 /* kernel_alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486BF222870CB008601C7 /* kernel_alloc.c */; };
 		917486D0222870CB008601C7 /* kernel_slide.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486C0222870CB008601C7 /* kernel_slide.c */; };
+		917486EA222879F3008601C7 /* kexecute.m in Sources */ = {isa = PBXBuildFile; fileRef = 917486D6222879F2008601C7 /* kexecute.m */; };
+		917486EB222879F3008601C7 /* offsets.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486D9222879F2008601C7 /* offsets.c */; };
+		917486EC222879F3008601C7 /* patchfinder64.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486DA222879F2008601C7 /* patchfinder64.c */; };
+		917486ED222879F3008601C7 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 917486DB222879F2008601C7 /* Makefile */; };
+		917486EE222879F3008601C7 /* osobject.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486DC222879F2008601C7 /* osobject.c */; };
+		917486EF222879F3008601C7 /* offsetof.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486DD222879F2008601C7 /* offsetof.c */; };
+		917486F0222879F3008601C7 /* Ent.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917486E1222879F2008601C7 /* Ent.plist */; };
+		917486F1222879F3008601C7 /* sandbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486E4222879F2008601C7 /* sandbox.c */; };
+		917486F2222879F3008601C7 /* kmem.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486E5222879F2008601C7 /* kmem.c */; };
+		917486F3222879F3008601C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 917486E6222879F2008601C7 /* main.m */; };
+		917486F4222879F3008601C7 /* kern_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 917486E9222879F3008601C7 /* kern_utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		551FBBE221C43356005F5DC9 /* IOKitLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
-		558AB70121C9642F00FA1594 /* ipc_port.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ipc_port.h; sourceTree = "<group>"; };
-		558AB70221C9679200FA1594 /* mach_vm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mach_vm.h; sourceTree = "<group>"; };
 		55F5FBE621BB2C3200F3AB28 /* sefebreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sefebreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F5FBE921BB2C3200F3AB28 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		55F5FBEA21BB2C3200F3AB28 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -77,8 +85,8 @@
 		91580DE42226C66700729186 /* untar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = untar.c; sourceTree = "<group>"; };
 		91580DE72226CB8000729186 /* dropbear.v2018.76.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = dropbear.v2018.76.tar; sourceTree = "<group>"; };
 		91580DEA2226D2D500729186 /* iosbinpack.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = iosbinpack.tar; sourceTree = "<group>"; };
-		9174869C22286CB3008601C7 /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = patchfinder64.c; path = patchfinder64/patchfinder64.c; sourceTree = "<group>"; };
-		9174869D22286CB3008601C7 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = patchfinder64.h; path = patchfinder64/patchfinder64.h; sourceTree = "<group>"; };
+		9174869C22286CB3008601C7 /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = patchfinder64.c; sourceTree = "<group>"; };
+		9174869D22286CB3008601C7 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		917486A1222870CB008601C7 /* ipc_port.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipc_port.h; sourceTree = "<group>"; };
 		917486A2222870CB008601C7 /* IOKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOKitLib.h; sourceTree = "<group>"; };
 		917486A3222870CB008601C7 /* mach_vm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_vm.h; sourceTree = "<group>"; };
@@ -107,6 +115,27 @@
 		917486BF222870CB008601C7 /* kernel_alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kernel_alloc.c; sourceTree = "<group>"; };
 		917486C0222870CB008601C7 /* kernel_slide.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kernel_slide.c; sourceTree = "<group>"; };
 		917486C1222870CB008601C7 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		917486D5222879F2008601C7 /* sandbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sandbox.h; sourceTree = "<group>"; };
+		917486D6222879F2008601C7 /* kexecute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kexecute.m; sourceTree = "<group>"; };
+		917486D7222879F2008601C7 /* kexecute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kexecute.h; sourceTree = "<group>"; };
+		917486D8222879F2008601C7 /* launch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launch.h; sourceTree = "<group>"; };
+		917486D9222879F2008601C7 /* offsets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = offsets.c; sourceTree = "<group>"; };
+		917486DA222879F2008601C7 /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = patchfinder64.c; sourceTree = "<group>"; };
+		917486DB222879F2008601C7 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		917486DC222879F2008601C7 /* osobject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osobject.c; sourceTree = "<group>"; };
+		917486DD222879F2008601C7 /* offsetof.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = offsetof.c; sourceTree = "<group>"; };
+		917486DE222879F2008601C7 /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
+		917486DF222879F2008601C7 /* offsetof.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsetof.h; sourceTree = "<group>"; };
+		917486E0222879F2008601C7 /* kmem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kmem.h; sourceTree = "<group>"; };
+		917486E1222879F2008601C7 /* Ent.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Ent.plist; sourceTree = "<group>"; };
+		917486E2222879F2008601C7 /* cs_blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_blob.h; sourceTree = "<group>"; };
+		917486E3222879F2008601C7 /* kern_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kern_utils.h; sourceTree = "<group>"; };
+		917486E4222879F2008601C7 /* sandbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sandbox.c; sourceTree = "<group>"; };
+		917486E5222879F2008601C7 /* kmem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kmem.c; sourceTree = "<group>"; };
+		917486E6222879F2008601C7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		917486E7222879F2008601C7 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
+		917486E8222879F3008601C7 /* osobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osobject.h; sourceTree = "<group>"; };
+		917486E9222879F3008601C7 /* kern_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kern_utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,25 +165,15 @@
 			path = app;
 			sourceTree = "<group>";
 		};
-		5581FD1D21D6A02A009FC879 /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				551FBBE221C43356005F5DC9 /* IOKitLib.h */,
-				558AB70121C9642F00FA1594 /* ipc_port.h */,
-				558AB70221C9679200FA1594 /* mach_vm.h */,
-			);
-			path = headers;
-			sourceTree = "<group>";
-		};
 		55F5FBDD21BB2C3200F3AB28 = {
 			isa = PBXGroup;
 			children = (
+				917486D322287994008601C7 /* payload_source */,
 				91580DE62226CAC500729186 /* tars */,
 				9174869B22286C89008601C7 /* patchfinder64 */,
 				91580D8622077A1C00729186 /* postexp */,
 				9174869F222870B1008601C7 /* azad_exploit */,
 				5581FD0921D44A46009FC879 /* app */,
-				5581FD1D21D6A02A009FC879 /* headers */,
 				55F5FBE721BB2C3200F3AB28 /* Products */,
 				91580D6D22023A2700729186 /* Frameworks */,
 			);
@@ -178,26 +197,26 @@
 		91580D8622077A1C00729186 /* postexp */ = {
 			isa = PBXGroup;
 			children = (
-				91580DA82208D68F00729186 /* offsetof.c */,
-				91580DA72208D68F00729186 /* offsetof.h */,
-				91580DAA2208D77400729186 /* offsets.h */,
-				91580DAD2208D8B200729186 /* offsets.m */,
-				91580DDE222688B800729186 /* lzssdec.cpp */,
-				91580DDD222688B700729186 /* lzssdec.hpp */,
-				91580DA422078EE000729186 /* root.c */,
-				91580DA322078EE000729186 /* root.h */,
-				91580DB32208DA4600729186 /* sandbox.c */,
-				91580DB22208DA4600729186 /* sandbox.h */,
 				91580DB02208D9AC00729186 /* post-common.m */,
 				91580DAF2208D9AC00729186 /* post-common.h */,
 				91580DB52208DB8300729186 /* postexp.h */,
 				91580DB62208DB8300729186 /* postexp.m */,
 				91580DD02225DE8C00729186 /* amfi_utils.h */,
 				91580DD12225DE8C00729186 /* amfi_utils.m */,
+				91580DE42226C66700729186 /* untar.c */,
+				91580DE32226C66700729186 /* untar.h */,
+				91580DDE222688B800729186 /* lzssdec.cpp */,
+				91580DDD222688B700729186 /* lzssdec.hpp */,
+				91580DA82208D68F00729186 /* offsetof.c */,
+				91580DA72208D68F00729186 /* offsetof.h */,
+				91580DAA2208D77400729186 /* offsets.h */,
+				91580DAD2208D8B200729186 /* offsets.m */,
 				91580DDA2226844500729186 /* macho-helper.h */,
 				91580DDB2226844500729186 /* macho-helper.c */,
-				91580DE32226C66700729186 /* untar.h */,
-				91580DE42226C66700729186 /* untar.c */,
+				91580DA422078EE000729186 /* root.c */,
+				91580DA322078EE000729186 /* root.h */,
+				91580DB32208DA4600729186 /* sandbox.c */,
+				91580DB22208DA4600729186 /* sandbox.h */,
 			);
 			path = postexp;
 			sourceTree = "<group>";
@@ -217,7 +236,7 @@
 				9174869C22286CB3008601C7 /* patchfinder64.c */,
 				9174869D22286CB3008601C7 /* patchfinder64.h */,
 			);
-			name = patchfinder64;
+			path = patchfinder64;
 			sourceTree = "<group>";
 		};
 		9174869F222870B1008601C7 /* azad_exploit */ = {
@@ -226,46 +245,44 @@
 				917486A0222870CB008601C7 /* headers */,
 				917486A7222870CB008601C7 /* voucher_swap */,
 			);
-			name = azad_exploit;
+			path = azad_exploit;
 			sourceTree = "<group>";
 		};
 		917486A0222870CB008601C7 /* headers */ = {
 			isa = PBXGroup;
 			children = (
-				917486A1222870CB008601C7 /* ipc_port.h */,
 				917486A2222870CB008601C7 /* IOKitLib.h */,
+				917486A1222870CB008601C7 /* ipc_port.h */,
 				917486A3222870CB008601C7 /* mach_vm.h */,
 			);
-			name = headers;
-			path = azad_exploit/headers;
+			path = headers;
 			sourceTree = "<group>";
 		};
 		917486A7222870CB008601C7 /* voucher_swap */ = {
 			isa = PBXGroup;
 			children = (
-				917486A8222870CB008601C7 /* kernel_memory.h */,
-				917486A9222870CB008601C7 /* log.c */,
-				917486AA222870CB008601C7 /* parameters.c */,
-				917486AB222870CB008601C7 /* platform_match.c */,
-				917486AC222870CB008601C7 /* kernel_call.c */,
 				917486AD222870CB008601C7 /* kernel_call */,
-				917486B4222870CB008601C7 /* voucher_swap.h */,
-				917486B5222870CB008601C7 /* kernel_alloc.h */,
-				917486B6222870CB008601C7 /* platform.c */,
-				917486B7222870CB008601C7 /* kernel_slide.h */,
-				917486B8222870CB008601C7 /* README */,
-				917486B9222870CB008601C7 /* kernel_call.h */,
-				917486BA222870CB008601C7 /* platform_match.h */,
-				917486BB222870CB008601C7 /* parameters.h */,
-				917486BC222870CB008601C7 /* kernel_memory.c */,
-				917486BD222870CB008601C7 /* log.h */,
-				917486BE222870CB008601C7 /* voucher_swap.c */,
 				917486BF222870CB008601C7 /* kernel_alloc.c */,
+				917486B5222870CB008601C7 /* kernel_alloc.h */,
+				917486AC222870CB008601C7 /* kernel_call.c */,
+				917486B9222870CB008601C7 /* kernel_call.h */,
+				917486BC222870CB008601C7 /* kernel_memory.c */,
+				917486A8222870CB008601C7 /* kernel_memory.h */,
 				917486C0222870CB008601C7 /* kernel_slide.c */,
+				917486B7222870CB008601C7 /* kernel_slide.h */,
+				917486A9222870CB008601C7 /* log.c */,
+				917486BD222870CB008601C7 /* log.h */,
+				917486AA222870CB008601C7 /* parameters.c */,
+				917486BB222870CB008601C7 /* parameters.h */,
+				917486AB222870CB008601C7 /* platform_match.c */,
+				917486BA222870CB008601C7 /* platform_match.h */,
+				917486B6222870CB008601C7 /* platform.c */,
 				917486C1222870CB008601C7 /* platform.h */,
+				917486B8222870CB008601C7 /* README */,
+				917486BE222870CB008601C7 /* voucher_swap.c */,
+				917486B4222870CB008601C7 /* voucher_swap.h */,
 			);
-			name = voucher_swap;
-			path = azad_exploit/voucher_swap;
+			path = voucher_swap;
 			sourceTree = "<group>";
 		};
 		917486AD222870CB008601C7 /* kernel_call */ = {
@@ -279,6 +296,43 @@
 				917486B3222870CB008601C7 /* kc_parameters.h */,
 			);
 			path = kernel_call;
+			sourceTree = "<group>";
+		};
+		917486D322287994008601C7 /* payload_source */ = {
+			isa = PBXGroup;
+			children = (
+				917486D4222879D4008601C7 /* jailbreakd */,
+			);
+			name = payload_source;
+			path = payloads_source;
+			sourceTree = "<group>";
+		};
+		917486D4222879D4008601C7 /* jailbreakd */ = {
+			isa = PBXGroup;
+			children = (
+				917486E2222879F2008601C7 /* cs_blob.h */,
+				917486E1222879F2008601C7 /* Ent.plist */,
+				917486E3222879F2008601C7 /* kern_utils.h */,
+				917486E9222879F3008601C7 /* kern_utils.m */,
+				917486D7222879F2008601C7 /* kexecute.h */,
+				917486D6222879F2008601C7 /* kexecute.m */,
+				917486E5222879F2008601C7 /* kmem.c */,
+				917486E0222879F2008601C7 /* kmem.h */,
+				917486D8222879F2008601C7 /* launch.h */,
+				917486E6222879F2008601C7 /* main.m */,
+				917486DB222879F2008601C7 /* Makefile */,
+				917486DD222879F2008601C7 /* offsetof.c */,
+				917486DF222879F2008601C7 /* offsetof.h */,
+				917486D9222879F2008601C7 /* offsets.c */,
+				917486E7222879F2008601C7 /* offsets.h */,
+				917486DC222879F2008601C7 /* osobject.c */,
+				917486E8222879F3008601C7 /* osobject.h */,
+				917486DA222879F2008601C7 /* patchfinder64.c */,
+				917486DE222879F2008601C7 /* patchfinder64.h */,
+				917486E4222879F2008601C7 /* sandbox.c */,
+				917486D5222879F2008601C7 /* sandbox.h */,
+			);
+			path = jailbreakd;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +395,7 @@
 				91580DEB2226D2D500729186 /* iosbinpack.tar in Resources */,
 				91580DE92226CB9900729186 /* dropbear.v2018.76.tar in Resources */,
 				917486CC222870CB008601C7 /* README in Resources */,
+				917486F0222879F3008601C7 /* Ent.plist in Resources */,
 				55F5FBF621BB2C3300F3AB28 /* LaunchScreen.storyboard in Resources */,
 				91580D682202333500729186 /* ViewController.xib in Resources */,
 				55F5FBF321BB2C3300F3AB28 /* Assets.xcassets in Resources */,
@@ -354,25 +409,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917486ED222879F3008601C7 /* Makefile in Sources */,
+				917486EC222879F3008601C7 /* patchfinder64.c in Sources */,
 				91580DE52226C66700729186 /* untar.c in Sources */,
 				917486C5222870CB008601C7 /* parameters.c in Sources */,
 				91580DA92208D68F00729186 /* offsetof.c in Sources */,
+				917486F3222879F3008601C7 /* main.m in Sources */,
 				91580DB42208DA4600729186 /* sandbox.c in Sources */,
 				917486C6222870CB008601C7 /* platform_match.c in Sources */,
 				917486CE222870CB008601C7 /* voucher_swap.c in Sources */,
+				917486F1222879F3008601C7 /* sandbox.c in Sources */,
 				91580DB12208D9AC00729186 /* post-common.m in Sources */,
 				917486CA222870CB008601C7 /* pac.c in Sources */,
 				917486C7222870CB008601C7 /* kernel_call.c in Sources */,
+				917486EA222879F3008601C7 /* kexecute.m in Sources */,
+				917486EE222879F3008601C7 /* osobject.c in Sources */,
 				91580DDF222688B800729186 /* lzssdec.cpp in Sources */,
 				91580DD22225DE8C00729186 /* amfi_utils.m in Sources */,
 				917486C8222870CB008601C7 /* user_client.c in Sources */,
 				91580DB72208DB8300729186 /* postexp.m in Sources */,
+				917486F4222879F3008601C7 /* kern_utils.m in Sources */,
 				91580DA522078EE000729186 /* root.c in Sources */,
 				917486CD222870CB008601C7 /* kernel_memory.c in Sources */,
 				55F5FBF921BB2C3300F3AB28 /* main.m in Sources */,
+				917486F2222879F3008601C7 /* kmem.c in Sources */,
 				91580DAE2208D8B200729186 /* offsets.m in Sources */,
 				9174869E22286CB3008601C7 /* patchfinder64.c in Sources */,
 				917486CB222870CB008601C7 /* platform.c in Sources */,
+				917486EF222879F3008601C7 /* offsetof.c in Sources */,
+				917486EB222879F3008601C7 /* offsets.c in Sources */,
 				91580DDC2226844500729186 /* macho-helper.c in Sources */,
 				917486CF222870CB008601C7 /* kernel_alloc.c in Sources */,
 				917486C4222870CB008601C7 /* log.c in Sources */,
