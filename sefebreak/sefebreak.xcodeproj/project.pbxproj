@@ -40,6 +40,11 @@
 		917486CF222870CB008601C7 /* kernel_alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486BF222870CB008601C7 /* kernel_alloc.c */; };
 		917486D0222870CB008601C7 /* kernel_slide.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486C0222870CB008601C7 /* kernel_slide.c */; };
 		917486F6222A9D82008601C7 /* jailbreakd.tar in Resources */ = {isa = PBXBuildFile; fileRef = 917486F5222A9D82008601C7 /* jailbreakd.tar */; };
+		917486F9222A9F11008601C7 /* launch_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486F8222A9F11008601C7 /* launch_utils.c */; };
+		917486FC222AD855008601C7 /* payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 917486FB222AD855008601C7 /* payload.c */; };
+		917486FF222ADD87008601C7 /* dropbear.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917486FE222ADD87008601C7 /* dropbear.plist */; };
+		91748703222AE259008601C7 /* jailbreakd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91748702222AE259008601C7 /* jailbreakd.plist */; };
+		91748706222AEA8E008601C7 /* offsets_dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 91748705222AEA8E008601C7 /* offsets_dump.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +111,14 @@
 		917486C0222870CB008601C7 /* kernel_slide.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kernel_slide.c; sourceTree = "<group>"; };
 		917486C1222870CB008601C7 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		917486F5222A9D82008601C7 /* jailbreakd.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = jailbreakd.tar; sourceTree = "<group>"; };
+		917486F7222A9F11008601C7 /* launch_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = launch_utils.h; sourceTree = "<group>"; };
+		917486F8222A9F11008601C7 /* launch_utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = launch_utils.c; sourceTree = "<group>"; };
+		917486FA222AD855008601C7 /* payload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payload.h; sourceTree = "<group>"; };
+		917486FB222AD855008601C7 /* payload.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = payload.c; sourceTree = "<group>"; };
+		917486FE222ADD87008601C7 /* dropbear.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = dropbear.plist; sourceTree = "<group>"; };
+		91748702222AE259008601C7 /* jailbreakd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = jailbreakd.plist; sourceTree = "<group>"; };
+		91748704222AEA8E008601C7 /* offsets_dump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = offsets_dump.h; sourceTree = "<group>"; };
+		91748705222AEA8E008601C7 /* offsets_dump.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = offsets_dump.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +151,7 @@
 		55F5FBDD21BB2C3200F3AB28 = {
 			isa = PBXGroup;
 			children = (
+				917486FD222ADD6B008601C7 /* daemons */,
 				91580DE62226CAC500729186 /* tars */,
 				9174869B22286C89008601C7 /* patchfinder64 */,
 				91580D8622077A1C00729186 /* postexp */,
@@ -166,8 +180,8 @@
 		91580D8622077A1C00729186 /* postexp */ = {
 			isa = PBXGroup;
 			children = (
-				91580DB02208D9AC00729186 /* post-common.m */,
 				91580DAF2208D9AC00729186 /* post-common.h */,
+				91580DB02208D9AC00729186 /* post-common.m */,
 				91580DB52208DB8300729186 /* postexp.h */,
 				91580DB62208DB8300729186 /* postexp.m */,
 				91580DD02225DE8C00729186 /* amfi_utils.h */,
@@ -186,6 +200,12 @@
 				91580DA322078EE000729186 /* root.h */,
 				91580DB32208DA4600729186 /* sandbox.c */,
 				91580DB22208DA4600729186 /* sandbox.h */,
+				917486F8222A9F11008601C7 /* launch_utils.c */,
+				917486F7222A9F11008601C7 /* launch_utils.h */,
+				917486FB222AD855008601C7 /* payload.c */,
+				917486FA222AD855008601C7 /* payload.h */,
+				91748705222AEA8E008601C7 /* offsets_dump.c */,
+				91748704222AEA8E008601C7 /* offsets_dump.h */,
 			);
 			path = postexp;
 			sourceTree = "<group>";
@@ -268,6 +288,15 @@
 			path = kernel_call;
 			sourceTree = "<group>";
 		};
+		917486FD222ADD6B008601C7 /* daemons */ = {
+			isa = PBXGroup;
+			children = (
+				917486FE222ADD87008601C7 /* dropbear.plist */,
+				91748702222AE259008601C7 /* jailbreakd.plist */,
+			);
+			path = daemons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -331,7 +360,9 @@
 				917486CC222870CB008601C7 /* README in Resources */,
 				55F5FBF621BB2C3300F3AB28 /* LaunchScreen.storyboard in Resources */,
 				91580D682202333500729186 /* ViewController.xib in Resources */,
+				91748703222AE259008601C7 /* jailbreakd.plist in Resources */,
 				55F5FBF321BB2C3300F3AB28 /* Assets.xcassets in Resources */,
+				917486FF222ADD87008601C7 /* dropbear.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,14 +381,17 @@
 				917486CE222870CB008601C7 /* voucher_swap.c in Sources */,
 				91580DB12208D9AC00729186 /* post-common.m in Sources */,
 				917486CA222870CB008601C7 /* pac.c in Sources */,
+				917486FC222AD855008601C7 /* payload.c in Sources */,
 				917486C7222870CB008601C7 /* kernel_call.c in Sources */,
 				91580DDF222688B800729186 /* lzssdec.cpp in Sources */,
 				91580DD22225DE8C00729186 /* amfi_utils.m in Sources */,
+				917486F9222A9F11008601C7 /* launch_utils.c in Sources */,
 				917486C8222870CB008601C7 /* user_client.c in Sources */,
 				91580DB72208DB8300729186 /* postexp.m in Sources */,
 				91580DA522078EE000729186 /* root.c in Sources */,
 				917486CD222870CB008601C7 /* kernel_memory.c in Sources */,
 				55F5FBF921BB2C3300F3AB28 /* main.m in Sources */,
+				91748706222AEA8E008601C7 /* offsets_dump.c in Sources */,
 				91580DAE2208D8B200729186 /* offsets.m in Sources */,
 				9174869E22286CB3008601C7 /* patchfinder64.c in Sources */,
 				917486CB222870CB008601C7 /* platform.c in Sources */,

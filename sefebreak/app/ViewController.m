@@ -43,7 +43,7 @@
         ERROR("Error getting kernel slide");
     } else {
         [_kernelSlide setText:[NSString stringWithFormat:@"0x%016llx", kernel_slide]];
-        [_kernelBase setText:[NSString stringWithFormat:@"0x%016llx", STATIC_ADDRESS(kernel_base) + kernel_slide]];
+        [_kernelBase setText:[NSString stringWithFormat:@"0x%016llx", kernel_load_base]];
     }
 }
 
@@ -60,7 +60,7 @@
 }
 
 - (IBAction)startBootstrap:(id)sender {
-    launch_dropbear();
+    bootstrap();
 }
 
 - (IBAction)doCleanup:(id)sender {
