@@ -15,7 +15,7 @@
 		<string>-p</string>
 		<string>127.0.0.1:22</string>
 		<string>-p</string>
-		<string>127.0.0.1:2222</string>
+		<string>0.0.0.0:2222</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
