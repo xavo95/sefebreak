@@ -4,8 +4,8 @@
 [submodule "sefebreak/azad_exploit"]
 	path = sefebreak/azad_exploit
 	url = https://github.com/xavo95/voucher_swap.git
-[submodule "sefebreak/postexp"]
-	path = sefebreak/postexp
+[submodule "postexp"]
+	path = postexp
 	url = https://github.com/xavo95/postexp.git
 [submodule "sefebreak/payloads_source/jailbreakd"]
 	path = sefebreak/payloads_source/jailbreakd
