@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:postexp/postexp.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:sefebreak/sefebreak.xcodeproj">
    </FileRef>
 </Workspace>
