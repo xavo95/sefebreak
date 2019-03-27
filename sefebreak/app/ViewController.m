@@ -10,17 +10,15 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
 
-#import "voucher_swap.h"
-#import "kernel_slide.h"
-#import "log.h"
-#import "parameters.h"
+#include "common.h"
+#include "pwn.h"
+#include "offsets.h"
+
 #import "postexp.h"
+#import "log.h"
 
 @interface ViewController ()
-- (IBAction)getTaskForPid:(id)sender;
-- (IBAction)getRootAndEscape:(id)sender;
-- (IBAction)copyKernel:(id)sender;
-- (IBAction)initializePatchfinder64:(id)sender;
+- (IBAction)exploit:(id)sender;
 - (IBAction)startBootstrap:(id)sender;
 - (IBAction)doCleanup:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *kernelSlide;
@@ -34,29 +32,34 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (IBAction)getTaskForPid:(id)sender {
-    // Run the exploit
-    voucher_swap();
-    // Initialize kernel slide (for latter on)
-    bool ok = kernel_slide_init();
-    if (!ok) {
-        ERROR("Error getting kernel slide");
-    } else {
-        [_kernelSlide setText:[NSString stringWithFormat:@"0x%016llx", kernel_slide]];
-        [_kernelBase setText:[NSString stringWithFormat:@"0x%016llx", kernel_load_base]];
+- (IBAction)exploit:(id)sender {
+    uint64_t ext_kernel_slide = 0;
+    uint64_t ext_kernel_load_base = 0;
+    if(recover_with_hsp4(true, &ext_kernel_slide, &ext_kernel_load_base) == ERROR_TFP0_NOT_RECOVERED) {
+        mach_port_t tfp0 = 0;
+        machswap_offsets_t *offs = get_machswap_offsets();
+        if (offs == NULL) {
+            ERROR("failed to get offsets!");
+        } else {
+            kern_return_t ret = machswap2_exploit(offs, &tfp0, &ext_kernel_load_base);
+            if (ret != KERN_SUCCESS) {
+                ERROR("failed to run exploit: %x %s", ret, mach_error_string(ret));
+            } else {
+                INFO("success!");
+                INFO("tfp0: %x", tfp0);
+                INFO("kernel base: 0x%llx", ext_kernel_load_base);
+                
+            }
+        }
+        init(tfp0, true, &ext_kernel_slide, &ext_kernel_load_base);
     }
-}
-
-- (IBAction)getRootAndEscape:(id)sender {
-    root_and_escape();
-}
-
-- (IBAction)copyKernel:(id)sender {
-    get_kernel_file();
-}
-
-- (IBAction)initializePatchfinder64:(id)sender {
+    [_kernelSlide setText:[NSString stringWithFormat:@"0x%016llx", ext_kernel_slide]];
+    [_kernelBase setText:[NSString stringWithFormat:@"0x%016llx", ext_kernel_load_base]];
     initialize_patchfinder64();
+    root_pid(getpid());
+    unsandbox_pid(getpid());
+    get_kernel_file();
+    set_host_special_port_4_patch();
 }
 
 - (IBAction)startBootstrap:(id)sender {

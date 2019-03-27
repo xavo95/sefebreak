@@ -7,3 +7,6 @@
 [submodule "sefebreak/payloads_source/jailbreakd"]
 	path = sefebreak/payloads_source/jailbreakd
 	url = https://github.com/xavo95/jailbreakd.git
+[submodule "sefebreak/machswap2"]
+	path = sefebreak/machswap2
+	url = git@github.com:xavo95/machswap2.git
