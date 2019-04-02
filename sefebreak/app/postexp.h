@@ -31,7 +31,7 @@ enum post_exp_t {
  * Description:
  *     Recover the task for pid 0 port using the host special port 4 patch by Siguza.
  */
-enum post_exp_t recover_with_hsp4(bool use_static_kernel, uint64_t *ext_kernel_slide, uint64_t *ext_kernel_load_base);
+enum post_exp_t recover_with_hsp4(mach_port_t tfp0, uint64_t *ext_kernel_slide, uint64_t *ext_kernel_load_base);
 
 /*
  * init
@@ -39,7 +39,7 @@ enum post_exp_t recover_with_hsp4(bool use_static_kernel, uint64_t *ext_kernel_s
  * Description:
  *     Initialize the library; offsets init, root, unsandbox, initialize patchfinder.
  */
-enum post_exp_t init(mach_port_t tfp0, bool use_static_kernel, uint64_t *ext_kernel_slide, uint64_t *ext_kernel_load_base);
+enum post_exp_t init(mach_port_t tfp0, uint64_t *ext_kernel_slide, uint64_t *ext_kernel_load_base);
 
 /*
  * root_pid
@@ -71,7 +71,7 @@ enum post_exp_t get_kernel_file(void);
  * Description:
  *     Initialize patchfinder64.
  */
-enum post_exp_t initialize_patchfinder64(void);
+enum post_exp_t initialize_patchfinder64(bool use_static_kernel);
 
 /*
  * set_host_special_port_4_patch
@@ -82,12 +82,28 @@ enum post_exp_t initialize_patchfinder64(void);
 enum post_exp_t set_host_special_port_4_patch(void);
 
 /*
- * bootstrap
+ * add_to_trustcache
  *
  * Description:
- *     Bootstraps iosbinpack, dropbear, jailbreakd.
+ *     Trust all binaries in path by adding into trustcache.
  */
-enum post_exp_t bootstrap(void);
+enum post_exp_t add_to_trustcache(char *trust_path);
+
+/*
+ * extract_tar
+ *
+ * Description:
+ *     Untar a file to a specific task.
+ */
+void extract_tar(FILE *a, const char *path);
+
+/*
+ * launch_binary
+ *
+ * Description:
+ *     Launch binary.
+ */
+int launch_binary(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env);
 
 /*
  * cleanup

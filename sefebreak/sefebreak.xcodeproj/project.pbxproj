@@ -22,6 +22,9 @@
 		9174880D22398BC0008601C7 /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174880922398BC0008601C7 /* offsets.m */; };
 		9174880E22398BC0008601C7 /* pwn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174880C22398BC0008601C7 /* pwn.m */; };
 		917488262242D7CC008601C7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 917488252242D7CC008601C7 /* libc++.tbd */; };
+		91748847225412C0008601C7 /* Unpacker.m in Sources */ = {isa = PBXBuildFile; fileRef = 91748846225412C0008601C7 /* Unpacker.m */; };
+		9174884E225413E9008601C7 /* payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 9174884C225413E9008601C7 /* payload.c */; };
+		917488562254149B008601C7 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = 917488542254149B008601C7 /* log.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,12 @@
 		9174880B22398BC0008601C7 /* pwn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pwn.h; sourceTree = "<group>"; };
 		9174880C22398BC0008601C7 /* pwn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pwn.m; sourceTree = "<group>"; };
 		917488252242D7CC008601C7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		91748846225412C0008601C7 /* Unpacker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Unpacker.m; sourceTree = "<group>"; };
+		91748848225412E7008601C7 /* Unpacker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Unpacker.h; sourceTree = "<group>"; };
+		9174884C225413E9008601C7 /* payload.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = payload.c; sourceTree = "<group>"; };
+		9174884D225413E9008601C7 /* payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payload.h; sourceTree = "<group>"; };
+		917488542254149B008601C7 /* log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
+		917488552254149B008601C7 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +77,15 @@
 			isa = PBXGroup;
 			children = (
 				917487C52237266A008601C7 /* postexp.h */,
+				91748848225412E7008601C7 /* Unpacker.h */,
+				91748846225412C0008601C7 /* Unpacker.m */,
 				55F5FBEC21BB2C3200F3AB28 /* ViewController.h */,
 				55F5FBED21BB2C3200F3AB28 /* ViewController.m */,
 				91580D672202333500729186 /* ViewController.xib */,
+				9174884C225413E9008601C7 /* payload.c */,
+				9174884D225413E9008601C7 /* payload.h */,
+				917488542254149B008601C7 /* log.c */,
+				917488552254149B008601C7 /* log.h */,
 				55F5FBE921BB2C3200F3AB28 /* AppDelegate.h */,
 				55F5FBEA21BB2C3200F3AB28 /* AppDelegate.m */,
 				55F5FBF221BB2C3300F3AB28 /* Assets.xcassets */,
@@ -218,8 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917488562254149B008601C7 /* log.c in Sources */,
 				9174880E22398BC0008601C7 /* pwn.m in Sources */,
+				9174884E225413E9008601C7 /* payload.c in Sources */,
 				55F5FBF921BB2C3300F3AB28 /* main.m in Sources */,
+				91748847225412C0008601C7 /* Unpacker.m in Sources */,
 				55F5FBEB21BB2C3200F3AB28 /* AppDelegate.m in Sources */,
 				9174880D22398BC0008601C7 /* offsets.m in Sources */,
 				55F5FBEE21BB2C3200F3AB28 /* ViewController.m in Sources */,

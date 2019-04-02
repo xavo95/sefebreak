@@ -16,6 +16,7 @@
 
 #import "postexp.h"
 #import "log.h"
+#import "Unpacker.h"
 
 @interface ViewController ()
 - (IBAction)exploit:(id)sender;
@@ -27,16 +28,17 @@
 
 @implementation ViewController
 
+uint64_t ext_kernel_slide = 0;
+uint64_t ext_kernel_load_base = 0;
+mach_port_t tfp0 = 0;
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (IBAction)exploit:(id)sender {
-    uint64_t ext_kernel_slide = 0;
-    uint64_t ext_kernel_load_base = 0;
-    if(recover_with_hsp4(true, &ext_kernel_slide, &ext_kernel_load_base) == ERROR_TFP0_NOT_RECOVERED) {
-        mach_port_t tfp0 = 0;
+    if(recover_with_hsp4(tfp0, &ext_kernel_slide, &ext_kernel_load_base) == ERROR_TFP0_NOT_RECOVERED) {
         machswap_offsets_t *offs = get_machswap_offsets();
         if (offs == NULL) {
             ERROR("failed to get offsets!");
@@ -51,23 +53,31 @@
                 
             }
         }
-        init(tfp0, true, &ext_kernel_slide, &ext_kernel_load_base);
+        init(tfp0, &ext_kernel_slide, &ext_kernel_load_base);
     }
+    // Start patching
     [_kernelSlide setText:[NSString stringWithFormat:@"0x%016llx", ext_kernel_slide]];
     [_kernelBase setText:[NSString stringWithFormat:@"0x%016llx", ext_kernel_load_base]];
-    initialize_patchfinder64();
+    get_kernel_file();
+    initialize_patchfinder64(true);
     root_pid(getpid());
     unsandbox_pid(getpid());
-    get_kernel_file();
     set_host_special_port_4_patch();
 }
 
 - (IBAction)startBootstrap:(id)sender {
-    bootstrap();
+    // Start Install
+    clean_up_previous();
+    unpack_binaries();
+    add_to_trustcache("/var/containers/Bundle/iosbinpack64");
+    prepare_dropbear();
+    unpack_launchdeamons(ext_kernel_load_base);
+    launch_binary("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
 }
 
 - (IBAction)doCleanup:(id)sender {
     cleanup();
+    launch_binary("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
 }
 
 @end
