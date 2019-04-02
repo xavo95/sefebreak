@@ -170,7 +170,7 @@ void unpack_launchdeamons(uint64_t kernel_load_base) {
     }
     if(fileExists(in_bundle("jailbreakd.plist"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
-        copyFile(in_bundle("jailbreakd.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
+//        copyFile(in_bundle("jailbreakd.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
     }
     //------------- launch daeamons -------------//
     //-- you can drop any daemon plist in iosbinpack64/LaunchDaemons and it will be loaded automatically --//

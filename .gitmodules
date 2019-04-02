@@ -1,6 +1,3 @@
-[submodule "sefebreak/azad_exploit"]
-	path = sefebreak/azad_exploit
-	url = https://github.com/xavo95/voucher_swap.git
 [submodule "postexp"]
 	path = postexp
 	url = git@github.com:xavo95/postexp.git

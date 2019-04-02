@@ -63,6 +63,8 @@ mach_port_t tfp0 = 0;
     root_pid(getpid());
     unsandbox_pid(getpid());
     set_host_special_port_4_patch();
+    // Dump stuff
+    dump_apticker();
 }
 
 - (IBAction)startBootstrap:(id)sender {

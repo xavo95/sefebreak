@@ -17,12 +17,9 @@ enum post_exp_t {
     ERROR_GETTING_ROOT = 2,
     ERROR_ESCAPING_SANDBOX = 3,
     ERROR_SETTING_PATCHFINDER64 = 4,
-    ERROR_INSTALLING_BOOTSTRAP = 5,
-    ERROR_LOADING_LAUNCHDAEMONS = 6,
-    ERROR_LOADING_JAILBREAKD = 7,
-    ERROR_SAVING_OFFSETS = 8,
-    ERROR_SETTING_HSP4 = 9,
-    ERROR_TFP0_NOT_RECOVERED = 10,
+    ERROR_SAVING_OFFSETS = 5,
+    ERROR_SETTING_HSP4 = 6,
+    ERROR_TFP0_NOT_RECOVERED = 7,
 };
 
 /*
@@ -88,6 +85,14 @@ enum post_exp_t set_host_special_port_4_patch(void);
  *     Trust all binaries in path by adding into trustcache.
  */
 enum post_exp_t add_to_trustcache(char *trust_path);
+
+/*
+ * dump_apticker
+ *
+ * Description:
+ *     Dump apticket.
+ */
+enum post_exp_t dump_apticker(void);
 
 /*
  * extract_tar
