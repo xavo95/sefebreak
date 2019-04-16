@@ -38,7 +38,8 @@ mach_port_t tfp0 = 0;
 }
 
 - (IBAction)exploit:(id)sender {
-    if(recover_with_hsp4(tfp0, &ext_kernel_slide, &ext_kernel_load_base) == ERROR_TFP0_NOT_RECOVERED) {
+    enum post_exp_t res = recover_with_hsp4(&tfp0, &ext_kernel_slide, &ext_kernel_load_base);
+    if((res == ERROR_TFP0_NOT_RECOVERED) || !verify_tfp0()) {
         machswap_offsets_t *offs = get_machswap_offsets();
         if (offs == NULL) {
             ERROR("failed to get offsets!");
@@ -50,7 +51,6 @@ mach_port_t tfp0 = 0;
                 INFO("success!");
                 INFO("tfp0: %x", tfp0);
                 INFO("kernel base: 0x%llx", ext_kernel_load_base);
-                
             }
         }
         init(tfp0, &ext_kernel_slide, &ext_kernel_load_base);
@@ -74,12 +74,12 @@ mach_port_t tfp0 = 0;
     add_to_trustcache("/var/containers/Bundle/iosbinpack64");
     prepare_dropbear();
     unpack_launchdeamons(ext_kernel_load_base);
-    launch_binary("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
 }
 
 - (IBAction)doCleanup:(id)sender {
     cleanup();
-    launch_binary("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
 }
 
 @end

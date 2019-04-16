@@ -69,13 +69,13 @@ bool clean_up_previous(void) {
         if(fileExists(in_bundle("iosbinpack.tar"))) {
             chdir("/var/containers/Bundle/");
             FILE *bootstrap = fopen((char*)in_bundle("iosbinpack.tar"), "r");
-            extract_tar(bootstrap, "/var/containers/Bundle/");
+            untar(bootstrap, "/var/containers/Bundle/");
             fclose(bootstrap);
         }
         
         if(fileExists(in_bundle("tweaksupport.tar"))) {
             FILE *tweaks = fopen((char*)in_bundle("tweaksupport.tar"), "r");
-            extract_tar(tweaks, "/var/containers/Bundle/");
+            untar(tweaks, "/var/containers/Bundle/");
             fclose(tweaks);
             
             if(!fileExists("/var/containers/Bundle/tweaksupport") || !fileExists("/var/containers/Bundle/iosbinpack64")) {
@@ -121,7 +121,7 @@ void unpack_binaries(void) {
         
         chdir("/var/containers/Bundle/");
         FILE *fixed_dropbear = fopen(in_bundle("dropbear.v2018.76.tar"), "r");
-        extract_tar(fixed_dropbear, "/var/containers/Bundle/");
+        untar(fixed_dropbear, "/var/containers/Bundle/");
         fclose(fixed_dropbear);
         INFO("installed Dropbear SSH!");
     }
@@ -132,7 +132,7 @@ void unpack_binaries(void) {
             chdir(in_bundle(""));
             
             FILE *jbd = fopen(in_bundle("jailbreakd.tar"), "r");
-            extract_tar(jbd, in_bundle("jailbreakd"));
+            untar(jbd, in_bundle("jailbreakd"));
             fclose(jbd);
             
             removeFile(in_bundle("jailbreakd.tar"));
@@ -159,7 +159,7 @@ void prepare_dropbear(void) {
     fclose(motd);
     chmod("/var/motd", 0777);
 
-    launch_binary("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-SEGV", "dropbear", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-SEGV", "dropbear", NULL, NULL, NULL, NULL, NULL);
 }
 
 void unpack_launchdeamons(uint64_t kernel_load_base) {
@@ -199,8 +199,8 @@ void unpack_launchdeamons(uint64_t kernel_load_base) {
     removeFile("/var/log/jailbreakd-stderr.log");
     removeFile("/var/log/jailbreakd-stdout.log");
     
-    launch_binary("/var/containers/Bundle/iosbinpack64/bin/launchctl", "unload", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
-    launch_binary("/var/containers/Bundle/iosbinpack64/bin/launchctl", "load", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/bin/launchctl", "unload", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/bin/launchctl", "load", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
     
     sleep(1);
     
