@@ -83,6 +83,13 @@ bool clean_up_previous(void) {
             }
         }
         
+        if(fileExists(in_bundle("extrabins.tar"))) {
+            chdir("/var/containers/Bundle/");
+            FILE *bootstrap = fopen((char*)in_bundle("extrabins.tar"), "r");
+            untar(bootstrap, "/var/containers/Bundle/");
+            fclose(bootstrap);
+        }
+        
         // REMOVE THIS LINE WHEN TWEAK SUPPORT IS ADDED
         mkdir("/var/containers/Bundle/tweaksupport", 0777);
         if(!fileExists("/var/containers/Bundle/iosbinpack64")) {

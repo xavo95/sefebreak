@@ -20,6 +20,7 @@ enum post_exp_t {
     ERROR_SAVING_OFFSETS = 5,
     ERROR_SETTING_HSP4 = 6,
     ERROR_TFP0_NOT_RECOVERED = 7,
+    ERROR_ADDING_TO_TRUSTCACHE = 8,
 };
 
 /*
@@ -285,4 +286,3 @@ uint64_t proc_of_pid(pid_t pid);
 bool verify_tfp0(void);
 
 #endif /* postexp_h */
-
