@@ -66,15 +66,15 @@ bool clean_up_previous(void) {
         
         INFO("installing bootstrap...");
         
-        if(fileExists(in_bundle("iosbinpack.tar"))) {
+        if(fileExists(in_bundle("tars/iosbinpack.tar"))) {
             chdir("/var/containers/Bundle/");
-            FILE *bootstrap = fopen((char*)in_bundle("iosbinpack.tar"), "r");
+            FILE *bootstrap = fopen((char*)in_bundle("tars/iosbinpack.tar"), "r");
             untar(bootstrap, "/var/containers/Bundle/");
             fclose(bootstrap);
         }
         
-        if(fileExists(in_bundle("tweaksupport.tar"))) {
-            FILE *tweaks = fopen((char*)in_bundle("tweaksupport.tar"), "r");
+        if(fileExists(in_bundle("tars/tweaksupport.tar"))) {
+            FILE *tweaks = fopen((char*)in_bundle("tars/tweaksupport.tar"), "r");
             untar(tweaks, "/var/containers/Bundle/");
             fclose(tweaks);
             
@@ -83,9 +83,9 @@ bool clean_up_previous(void) {
             }
         }
         
-        if(fileExists(in_bundle("extrabins.tar"))) {
+        if(fileExists(in_bundle("tars/extrabins.tar"))) {
             chdir("/var/containers/Bundle/");
-            FILE *bootstrap = fopen((char*)in_bundle("extrabins.tar"), "r");
+            FILE *bootstrap = fopen((char*)in_bundle("tars/extrabins.tar"), "r");
             untar(bootstrap, "/var/containers/Bundle/");
             fclose(bootstrap);
         }
@@ -122,27 +122,27 @@ void unpack_binaries(void) {
     prepare_payload();
     
     NSError *error = NULL;
-    if(fileExists(in_bundle("dropbear.v2018.76.tar"))) {
+    if(fileExists(in_bundle("tars/dropbear.v2018.76.tar"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/dropbear");
         removeFile("/var/containers/Bundle/iosbinpack64/usr/bin/scp");
         
         chdir("/var/containers/Bundle/");
-        FILE *fixed_dropbear = fopen(in_bundle("dropbear.v2018.76.tar"), "r");
+        FILE *fixed_dropbear = fopen(in_bundle("tars/dropbear.v2018.76.tar"), "r");
         untar(fixed_dropbear, "/var/containers/Bundle/");
         fclose(fixed_dropbear);
         INFO("installed Dropbear SSH!");
     }
     
-    if(fileExists(in_bundle("jailbreakd.tar"))) {
+    if(fileExists(in_bundle("tars/jailbreakd.tar"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/bin/jailbreakd");
         if (!fileExists(in_bundle("jailbreakd"))) {
             chdir(in_bundle(""));
             
-            FILE *jbd = fopen(in_bundle("jailbreakd.tar"), "r");
+            FILE *jbd = fopen(in_bundle("tars/jailbreakd.tar"), "r");
             untar(jbd, in_bundle("jailbreakd"));
             fclose(jbd);
             
-            removeFile(in_bundle("jailbreakd.tar"));
+            removeFile(in_bundle("tars/jailbreakd.tar"));
         }
         copyFile(in_bundle("jailbreakd"), "/var/containers/Bundle/iosbinpack64/bin/jailbreakd");
     }
@@ -171,13 +171,13 @@ void prepare_dropbear(void) {
 
 void unpack_launchdeamons(uint64_t kernel_load_base) {
     NSError *error = NULL;
-    if(fileExists(in_bundle("dropbear.plist"))) {
+    if(fileExists(in_bundle("daemons/dropbear.plist"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
-        copyFile(in_bundle("dropbear.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
+        copyFile(in_bundle("daemons/dropbear.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
     }
-    if(fileExists(in_bundle("jailbreakd.plist"))) {
+    if(fileExists(in_bundle("daemons/jailbreakd.plist"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
-        copyFile(in_bundle("jailbreakd.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
+        copyFile(in_bundle("daemons/jailbreakd.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
     }
     //------------- launch daeamons -------------//
     //-- you can drop any daemon plist in iosbinpack64/LaunchDaemons and it will be loaded automatically --//

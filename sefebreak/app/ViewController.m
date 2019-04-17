@@ -34,6 +34,13 @@ mach_port_t tfp0 = 0;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [[UIImage imageNamed:@"Background"] drawInRect:self.view.bounds];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    self.navigationController.navigationBar.topItem.title = @"Sefebreak";
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
