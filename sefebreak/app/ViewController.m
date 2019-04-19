@@ -32,6 +32,8 @@ uint64_t ext_kernel_slide = 0;
 uint64_t ext_kernel_load_base = 0;
 mach_port_t tfp0 = 0;
 
+int get_hsp4_perms(int pid, char *permissions, int value);
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
     UIGraphicsBeginImageContext(self.view.frame.size);
@@ -45,6 +47,11 @@ mach_port_t tfp0 = 0;
 }
 
 - (IBAction)exploit:(id)sender {
+    // TODO: Fix jailbreakd
+//    get_hsp4_perms(getpid(), "platform-application", 1);
+//    get_hsp4_perms(getpid(), "get-task-allow", 1);
+//    get_hsp4_perms(getpid(), "com.apple.system-task-ports", 1);
+//    get_hsp4_perms(getpid(), "task_for_pid-allow", 1);
     enum post_exp_t res = recover_with_hsp4(&tfp0, &ext_kernel_slide, &ext_kernel_load_base);
     if((res == ERROR_TFP0_NOT_RECOVERED) || !verify_tfp0()) {
         machswap_offsets_t *offs = get_machswap_offsets();
@@ -76,8 +83,14 @@ mach_port_t tfp0 = 0;
 
 - (IBAction)startBootstrap:(id)sender {
     // Start Install
-    clean_up_previous();
-    unpack_binaries();
+    host_basic_info_data_t basic_info;
+    mach_msg_type_number_t count = HOST_BASIC_INFO_COUNT;
+    kern_return_t kr = host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t) &basic_info, &count);
+    if(kr != KERN_SUCCESS) {
+        return;
+    }
+    clean_up_previous(false, basic_info.cpu_subtype);
+    unpack_binaries(basic_info.cpu_subtype);
     add_to_trustcache("/var/containers/Bundle/iosbinpack64");
     prepare_dropbear();
     unpack_launchdeamons(ext_kernel_load_base);

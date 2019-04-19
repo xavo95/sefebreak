@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #import <stdbool.h>
+#import <mach/mach.h>
 
 /*
  * clean_up_previous
@@ -18,7 +19,7 @@
  * Description:
  *     Clean up previous installation if specific file is not present.
  */
-bool clean_up_previous(void);
+bool clean_up_previous(bool force_reinstall, cpu_subtype_t cpu_subtype);
 
 /*
  * unpack_binaries
@@ -26,7 +27,7 @@ bool clean_up_previous(void);
  * Description:
  *     Unpack the binaries.
  */
-void unpack_binaries(void);
+void unpack_binaries(cpu_subtype_t cpu_subtype);
 
 /*
  * prepare_dropbear
