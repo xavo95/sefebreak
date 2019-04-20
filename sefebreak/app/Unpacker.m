@@ -131,14 +131,19 @@ bool clean_up_previous(bool force_reinstall, cpu_subtype_t cpu_subtype) {
 
 void unpack_binaries(cpu_subtype_t cpu_subtype) {
     NSError *error = NULL;
-    if(fileExists(in_bundle("tars/jtoolspack.tar"))) {
+    if(fileExists(in_bundle("tars/utilspack.tar"))) {
         char *staging_dir = in_bundle("staging");
         mkdir(staging_dir, 0777);
-        extract_resource("tars/jtoolspack.tar", staging_dir);
+        extract_resource("tars/utilspack.tar", staging_dir);
+        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/binbag");
         copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/binbag", "binbag", cpu_subtype);
+        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/bash");
         copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/bash", "bash", cpu_subtype);
         removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool");
+        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool2");
         copyFile(in_bundle("staging/jtool2"), "/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool2");
+        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/ldid");
+        copyFile(in_bundle("staging/ldid"), "/var/containers/Bundle/iosbinpack64/usr/local/bin/ldid");
         rmdir(staging_dir);
     }
     
