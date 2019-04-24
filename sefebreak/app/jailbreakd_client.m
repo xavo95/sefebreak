@@ -24,11 +24,10 @@
 struct __attribute__((__packed__)) JAILBREAKD_PREPARE_HSP4 {
     uint8_t Command;
     int32_t Pid;
-    int32_t Value;
     char Entitlement[1024];
 };
 
-int get_hsp4_perms(int pid, char *permissions, int value) {
+int get_hsp4_perms(int pid, char *permissions) {
     
     int sockfd, portno, n;
     int serverlen;
@@ -64,11 +63,8 @@ int get_hsp4_perms(int pid, char *permissions, int value) {
     struct JAILBREAKD_PREPARE_HSP4 entitlePacket;
     entitlePacket.Command = JAILBREAKD_COMMAMD_PREPARE_HSP4;
     entitlePacket.Pid = pid;
-    entitlePacket.Value = value;
     
-    char *c = entitlePacket.Entitlement;
     strncpy(entitlePacket.Entitlement, permissions, sizeof(entitlePacket.Entitlement));
-
     memcpy(buf, &entitlePacket, sizeof(struct JAILBREAKD_PREPARE_HSP4));
     
     serverlen = sizeof(serveraddr);

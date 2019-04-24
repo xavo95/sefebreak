@@ -39,7 +39,7 @@ if (error) {\
 ERROR("error moving item %s to path %s (%s)", copyFrom, moveTo, [[error localizedDescription] UTF8String]); \
 }
 
-void copy_launchdeamon(char *src, char *dst) {
+void if_exists_remove_copy(char *src, char *dst) {
     NSError *error = NULL;
     if(fileExists(in_bundle(src))) {
         removeFile(dst);
@@ -135,15 +135,10 @@ void unpack_binaries(cpu_subtype_t cpu_subtype) {
         char *staging_dir = in_bundle("staging");
         mkdir(staging_dir, 0777);
         extract_resource("tars/utilspack.tar", staging_dir);
-        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/binbag");
         copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/binbag", "binbag", cpu_subtype);
-        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/bash");
         copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/bash", "bash", cpu_subtype);
-        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool");
-        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool2");
-        copyFile(in_bundle("staging/jtool2"), "/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool2");
-        removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/ldid");
-        copyFile(in_bundle("staging/ldid"), "/var/containers/Bundle/iosbinpack64/usr/local/bin/ldid");
+        if_exists_remove_copy("staging/jtool2", "/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool2");
+        if_exists_remove_copy("staging/ldid", "/var/containers/Bundle/iosbinpack64/usr/local/bin/ldid");
         rmdir(staging_dir);
     }
     
@@ -206,8 +201,8 @@ void prepare_dropbear(void) {
 
 void unpack_launchdeamons(uint64_t kernel_load_base) {
     NSError *error = NULL;
-    copy_launchdeamon("daemons/dropbear.plist", "/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
-    copy_launchdeamon("daemons/jailbreakd.plist", "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
+    if_exists_remove_copy("daemons/dropbear.plist", "/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
+    if_exists_remove_copy("daemons/jailbreakd.plist", "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
     //------------- launch daeamons -------------//
     //-- you can drop any daemon plist in iosbinpack64/LaunchDaemons and it will be loaded automatically --//
     NSArray *plists = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/var/containers/Bundle/iosbinpack64/LaunchDaemons" error:nil];
