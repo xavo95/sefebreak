@@ -1,6 +1,6 @@
 # Description
 
-A rootless like jailbreak, some inspirtation was taken from jelbrekLib
+A rootless like jailbreak, some inspirtation was taken from rootles
 Only experimental version, in bootstraps the minimum binaries and spawn Dropbear SSH
 
 ## TODO:
@@ -10,11 +10,11 @@ Only experimental version, in bootstraps the minimum binaries and spawn Dropbear
 
 ## Support
 
-- A12 devices
+- A7-A12 devices
 
 ## Usage notes
 
-- voucher_swap is used for 16K devices
+- machswap2 for every device
 - Binaries are located in: /var/containers/Bundle/iosbinpack64
 
 All executables must have at least these two entitlements:
@@ -31,5 +31,3 @@ All executables must have at least these two entitlements:
 
 
 Thanks to: Ian Beer, Brandon Azad, Jonathan Levin, Electra Team, IBSparkes, qwertyouriop, Sam Bingner, Sammy Guichelaar, pwn20wndstuff, jakejames, ProteasWang.
-
-

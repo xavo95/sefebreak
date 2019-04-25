@@ -15,7 +15,7 @@
 #include "payload.h"
 #include "postexp.h"
 
-#define in_bundle(obj) strdup([[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@obj] UTF8String])
+#define in_bundle(obj) strdup([[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@(obj)] UTF8String])
 
 #define fileExists(file) [[NSFileManager defaultManager] fileExistsAtPath:@(file)]
 
@@ -39,9 +39,37 @@ if (error) {\
 ERROR("error moving item %s to path %s (%s)", copyFrom, moveTo, [[error localizedDescription] UTF8String]); \
 }
 
-bool clean_up_previous(void) {
+void if_exists_remove_copy(char *src, char *dst) {
     NSError *error = NULL;
-    if (!fileExists("/var/containers/Bundle/.installed_rootlessJB3")) {
+    if(fileExists(in_bundle(src))) {
+        removeFile(dst);
+        copyFile(in_bundle(src), dst);
+    }
+}
+
+void extract_resource(char *src, char *dst) {
+    chdir(dst);
+    FILE *bootstrap = fopen((char*)in_bundle(src), "r");
+    untar(bootstrap, dst);
+    fclose(bootstrap);
+}
+
+void copy_per_arch(char *src_dir, char *dst, char *executable, cpu_subtype_t cpu_subtype) {
+    char *path;
+    if(cpu_subtype == CPU_SUBTYPE_ARM64E) {
+        asprintf(&path, "%s/%s.arm64e", src_dir, executable);
+    } else {
+        asprintf(&path, "%s/%s.arm64", src_dir, executable);
+    }
+    NSError *error = NULL;
+    removeFile(dst);
+    copyFile(path, dst);
+    free(path);
+}
+
+bool clean_up_previous(bool force_reinstall, cpu_subtype_t cpu_subtype) {
+    NSError *error = NULL;
+    if (!fileExists("/var/containers/Bundle/.installed_rootlessJB3") || force_reinstall) {
         
         if (fileExists("/var/containers/Bundle/iosbinpack64")) {
             INFO("uninstalling previous build...");
@@ -66,26 +94,16 @@ bool clean_up_previous(void) {
         
         INFO("installing bootstrap...");
         
-        if(fileExists(in_bundle("iosbinpack.tar"))) {
-            chdir("/var/containers/Bundle/");
-            FILE *bootstrap = fopen((char*)in_bundle("iosbinpack.tar"), "r");
-            extract_tar(bootstrap, "/var/containers/Bundle/");
-            fclose(bootstrap);
+        if(fileExists(in_bundle("tars/iosbinpack.tar"))) {
+            extract_resource("tars/iosbinpack.tar", "/var/containers/Bundle/");
         }
-        
-        if(fileExists(in_bundle("tweaksupport.tar"))) {
-            FILE *tweaks = fopen((char*)in_bundle("tweaksupport.tar"), "r");
-            extract_tar(tweaks, "/var/containers/Bundle/");
-            fclose(tweaks);
-            
-            if(!fileExists("/var/containers/Bundle/tweaksupport") || !fileExists("/var/containers/Bundle/iosbinpack64")) {
-                ERROR("[-] Failed to install bootstrap");
-            }
+        if(fileExists(in_bundle("tars/tweaksupport.tar"))) {
+            extract_resource("tars/tweaksupport.tar", "/var/containers/Bundle/");
         }
         
         // REMOVE THIS LINE WHEN TWEAK SUPPORT IS ADDED
         mkdir("/var/containers/Bundle/tweaksupport", 0777);
-        if(!fileExists("/var/containers/Bundle/iosbinpack64")) {
+        if(!fileExists("/var/containers/Bundle/tweaksupport") || !fileExists("/var/containers/Bundle/iosbinpack64")) {
             ERROR("failed to install bootstrap");
             return false;
         }
@@ -111,34 +129,53 @@ bool clean_up_previous(void) {
     return true;
 }
 
-void unpack_binaries(void) {
-    prepare_payload();
-    
+void unpack_binaries(cpu_subtype_t cpu_subtype) {
     NSError *error = NULL;
-    if(fileExists(in_bundle("dropbear.v2018.76.tar"))) {
+    if(fileExists(in_bundle("tars/utilspack.tar"))) {
+        char *staging_dir = in_bundle("staging");
+        mkdir(staging_dir, 0777);
+        extract_resource("tars/utilspack.tar", staging_dir);
+        copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/binbag", "binbag", cpu_subtype);
+        copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/bash", "bash", cpu_subtype);
+        if_exists_remove_copy("staging/jtool2", "/var/containers/Bundle/iosbinpack64/usr/local/bin/jtool2");
+        if_exists_remove_copy("staging/ldid", "/var/containers/Bundle/iosbinpack64/usr/local/bin/ldid");
+        rmdir(staging_dir);
+    }
+    
+    if(fileExists(in_bundle("tars/extrabins.tar"))) {
+        char *staging_dir = in_bundle("staging");
+        mkdir(staging_dir, 0777);
+        extract_resource("tars/extrabins.tar", staging_dir);
+        copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/injector", "injector", cpu_subtype);
+        copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/unrestrict", "unrestrict", cpu_subtype);
+        rmdir(staging_dir);
+    }
+    
+    if(fileExists(in_bundle("tars/dropbear.v2018.76.tar"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/usr/local/bin/dropbear");
         removeFile("/var/containers/Bundle/iosbinpack64/usr/bin/scp");
         
         chdir("/var/containers/Bundle/");
-        FILE *fixed_dropbear = fopen(in_bundle("dropbear.v2018.76.tar"), "r");
-        extract_tar(fixed_dropbear, "/var/containers/Bundle/");
+        FILE *fixed_dropbear = fopen(in_bundle("tars/dropbear.v2018.76.tar"), "r");
+        untar(fixed_dropbear, "/var/containers/Bundle/");
         fclose(fixed_dropbear);
         INFO("installed Dropbear SSH!");
     }
     
-    if(fileExists(in_bundle("jailbreakd.tar"))) {
+    if(fileExists(in_bundle("tars/jailbreakd.tar"))) {
         removeFile("/var/containers/Bundle/iosbinpack64/bin/jailbreakd");
         if (!fileExists(in_bundle("jailbreakd"))) {
             chdir(in_bundle(""));
             
-            FILE *jbd = fopen(in_bundle("jailbreakd.tar"), "r");
-            extract_tar(jbd, in_bundle("jailbreakd"));
+            FILE *jbd = fopen(in_bundle("tars/jailbreakd.tar"), "r");
+            untar(jbd, in_bundle("jailbreakd"));
             fclose(jbd);
             
-            removeFile(in_bundle("jailbreakd.tar"));
+            removeFile(in_bundle("tars/jailbreakd.tar"));
         }
         copyFile(in_bundle("jailbreakd"), "/var/containers/Bundle/iosbinpack64/bin/jailbreakd");
     }
+    prepare_payload();
 }
 
 void prepare_dropbear(void) {
@@ -159,19 +196,13 @@ void prepare_dropbear(void) {
     fclose(motd);
     chmod("/var/motd", 0777);
 
-    launch_binary("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-SEGV", "dropbear", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-SEGV", "dropbear", NULL, NULL, NULL, NULL, NULL);
 }
 
 void unpack_launchdeamons(uint64_t kernel_load_base) {
     NSError *error = NULL;
-    if(fileExists(in_bundle("dropbear.plist"))) {
-        removeFile("/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
-        copyFile(in_bundle("dropbear.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
-    }
-    if(fileExists(in_bundle("jailbreakd.plist"))) {
-        removeFile("/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
-        copyFile(in_bundle("jailbreakd.plist"), "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
-    }
+    if_exists_remove_copy("daemons/dropbear.plist", "/var/containers/Bundle/iosbinpack64/LaunchDaemons/dropbear.plist");
+    if_exists_remove_copy("daemons/jailbreakd.plist", "/var/containers/Bundle/iosbinpack64/LaunchDaemons/jailbreakd.plist");
     //------------- launch daeamons -------------//
     //-- you can drop any daemon plist in iosbinpack64/LaunchDaemons and it will be loaded automatically --//
     NSArray *plists = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/var/containers/Bundle/iosbinpack64/LaunchDaemons" error:nil];
@@ -199,8 +230,8 @@ void unpack_launchdeamons(uint64_t kernel_load_base) {
     removeFile("/var/log/jailbreakd-stderr.log");
     removeFile("/var/log/jailbreakd-stdout.log");
     
-    launch_binary("/var/containers/Bundle/iosbinpack64/bin/launchctl", "unload", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
-    launch_binary("/var/containers/Bundle/iosbinpack64/bin/launchctl", "load", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/bin/launchctl", "unload", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
+    launch("/var/containers/Bundle/iosbinpack64/bin/launchctl", "load", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
     
     sleep(1);
     

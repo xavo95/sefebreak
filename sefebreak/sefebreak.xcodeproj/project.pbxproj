@@ -12,12 +12,9 @@
 		55F5FBF321BB2C3300F3AB28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F5FBF221BB2C3300F3AB28 /* Assets.xcassets */; };
 		55F5FBF621BB2C3300F3AB28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F5FBF421BB2C3300F3AB28 /* LaunchScreen.storyboard */; };
 		55F5FBF921BB2C3300F3AB28 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F5FBF821BB2C3300F3AB28 /* main.m */; };
+		780153ED2267866500395A19 /* tars in Resources */ = {isa = PBXBuildFile; fileRef = 780153EB2267866500395A19 /* tars */; };
+		780153EE2267866500395A19 /* daemons in Resources */ = {isa = PBXBuildFile; fileRef = 780153EC2267866500395A19 /* daemons */; };
 		91580D682202333500729186 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91580D672202333500729186 /* ViewController.xib */; };
-		91580DE92226CB9900729186 /* dropbear.v2018.76.tar in Resources */ = {isa = PBXBuildFile; fileRef = 91580DE72226CB8000729186 /* dropbear.v2018.76.tar */; };
-		91580DEB2226D2D500729186 /* iosbinpack.tar in Resources */ = {isa = PBXBuildFile; fileRef = 91580DEA2226D2D500729186 /* iosbinpack.tar */; };
-		917486F6222A9D82008601C7 /* jailbreakd.tar in Resources */ = {isa = PBXBuildFile; fileRef = 917486F5222A9D82008601C7 /* jailbreakd.tar */; };
-		917486FF222ADD87008601C7 /* dropbear.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917486FE222ADD87008601C7 /* dropbear.plist */; };
-		91748703222AE259008601C7 /* jailbreakd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91748702222AE259008601C7 /* jailbreakd.plist */; };
 		917487C422372564008601C7 /* libpostexp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 917487C322372564008601C7 /* libpostexp.a */; };
 		9174880D22398BC0008601C7 /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174880922398BC0008601C7 /* offsets.m */; };
 		9174880E22398BC0008601C7 /* pwn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174880C22398BC0008601C7 /* pwn.m */; };
@@ -37,12 +34,9 @@
 		55F5FBF521BB2C3300F3AB28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55F5FBF721BB2C3300F3AB28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55F5FBF821BB2C3300F3AB28 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		780153EB2267866500395A19 /* tars */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tars; sourceTree = "<group>"; };
+		780153EC2267866500395A19 /* daemons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = daemons; sourceTree = "<group>"; };
 		91580D672202333500729186 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		91580DE72226CB8000729186 /* dropbear.v2018.76.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = dropbear.v2018.76.tar; sourceTree = "<group>"; };
-		91580DEA2226D2D500729186 /* iosbinpack.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = iosbinpack.tar; sourceTree = "<group>"; };
-		917486F5222A9D82008601C7 /* jailbreakd.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = jailbreakd.tar; sourceTree = "<group>"; };
-		917486FE222ADD87008601C7 /* dropbear.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = dropbear.plist; sourceTree = "<group>"; };
-		91748702222AE259008601C7 /* jailbreakd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = jailbreakd.plist; sourceTree = "<group>"; };
 		917487C322372564008601C7 /* libpostexp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpostexp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		917487C52237266A008601C7 /* postexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postexp.h; sourceTree = "<group>"; };
 		9174880722398BC0008601C7 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
@@ -99,8 +93,7 @@
 		55F5FBDD21BB2C3200F3AB28 = {
 			isa = PBXGroup;
 			children = (
-				917486FD222ADD6B008601C7 /* daemons */,
-				91580DE62226CAC500729186 /* tars */,
+				780153D422677BD000395A19 /* jailbreak-resources */,
 				5581FD0921D44A46009FC879 /* app */,
 				9174880622398B92008601C7 /* machswap2 */,
 				55F5FBE721BB2C3200F3AB28 /* Products */,
@@ -116,6 +109,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		780153D422677BD000395A19 /* jailbreak-resources */ = {
+			isa = PBXGroup;
+			children = (
+				780153EC2267866500395A19 /* daemons */,
+				780153EB2267866500395A19 /* tars */,
+			);
+			path = "jailbreak-resources";
+			sourceTree = "<group>";
+		};
 		91580D6D22023A2700729186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,25 +125,6 @@
 				917487C322372564008601C7 /* libpostexp.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		91580DE62226CAC500729186 /* tars */ = {
-			isa = PBXGroup;
-			children = (
-				917486F5222A9D82008601C7 /* jailbreakd.tar */,
-				91580DEA2226D2D500729186 /* iosbinpack.tar */,
-				91580DE72226CB8000729186 /* dropbear.v2018.76.tar */,
-			);
-			path = tars;
-			sourceTree = "<group>";
-		};
-		917486FD222ADD6B008601C7 /* daemons */ = {
-			isa = PBXGroup;
-			children = (
-				917486FE222ADD87008601C7 /* dropbear.plist */,
-				91748702222AE259008601C7 /* jailbreakd.plist */,
-			);
-			path = daemons;
 			sourceTree = "<group>";
 		};
 		9174880622398B92008601C7 /* machswap2 */ = {
@@ -215,14 +198,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				917486F6222A9D82008601C7 /* jailbreakd.tar in Resources */,
-				91580DEB2226D2D500729186 /* iosbinpack.tar in Resources */,
-				91580DE92226CB9900729186 /* dropbear.v2018.76.tar in Resources */,
 				55F5FBF621BB2C3300F3AB28 /* LaunchScreen.storyboard in Resources */,
 				91580D682202333500729186 /* ViewController.xib in Resources */,
-				91748703222AE259008601C7 /* jailbreakd.plist in Resources */,
+				780153ED2267866500395A19 /* tars in Resources */,
 				55F5FBF321BB2C3300F3AB28 /* Assets.xcassets in Resources */,
-				917486FF222ADD87008601C7 /* dropbear.plist in Resources */,
+				780153EE2267866500395A19 /* daemons in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,7 @@ enum post_exp_t {
     ERROR_SAVING_OFFSETS = 5,
     ERROR_SETTING_HSP4 = 6,
     ERROR_TFP0_NOT_RECOVERED = 7,
+    ERROR_ADDING_TO_TRUSTCACHE = 8,
 };
 
 /*
@@ -28,7 +29,7 @@ enum post_exp_t {
  * Description:
  *     Recover the task for pid 0 port using the host special port 4 patch by Siguza.
  */
-enum post_exp_t recover_with_hsp4(mach_port_t tfp0, uint64_t *ext_kernel_slide, uint64_t *ext_kernel_load_base);
+enum post_exp_t recover_with_hsp4(mach_port_t *tfp0, uint64_t *ext_kernel_slide, uint64_t *ext_kernel_load_base);
 
 /*
  * init
@@ -95,27 +96,193 @@ enum post_exp_t add_to_trustcache(char *trust_path);
 enum post_exp_t dump_apticker(void);
 
 /*
- * extract_tar
- *
- * Description:
- *     Untar a file to a specific task.
- */
-void extract_tar(FILE *a, const char *path);
-
-/*
- * launch_binary
- *
- * Description:
- *     Launch binary.
- */
-int launch_binary(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env);
-
-/*
  * cleanup
  *
  * Description:
  *     Clean up; unroot, sandbox, deplatformize and stop patchfinder.
  */
 void cleanup(void);
+
+///////////////////////////////////////////// ADVANCED EXPORT METHODS /////////////////////////////////////////////
+
+/*
+ * untar
+ *
+ * Description:
+ *     Untar a file to a specific task.
+ */
+void untar(FILE *a, const char *path);
+
+/*
+ * launch
+ *
+ * Description:
+ *     Launch binary.
+ */
+int launch(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env);
+
+/*
+ * launchAsPlatform
+ *
+ * Description:
+ *     Launch a binary as platform binary.
+ */
+int launch_as_platform(char *binary, char *arg1, char *arg2, char *arg3, char *arg4, char *arg5, char *arg6, char**env);
+
+/*
+ * kernel_call_init_internal
+ *
+ * Description:
+ *     Initialize kernel_call functions.
+ */
+bool kernel_call_init(void);
+
+/*
+ * kernel_call_deinit
+ *
+ * Description:
+ *     Deinitialize the kernel call subsystem and restore the kernel to a safe state.
+ */
+void kernel_call_deinit(void);
+
+/*
+ * kernel_call_7
+ *
+ * Description:
+ *     Call a kernel function with the specified arguments.
+ *
+ * Restrictions:
+ *     See kernel_call_7v().
+ */
+uint32_t kernel_call_7(uint64_t function, size_t argument_count, ...);
+
+/*
+ *
+ * kernel_read
+ *
+ * Description:
+ *     Read data from kernel memory.
+ */
+bool kernel_read(uint64_t address, void *data, size_t size);
+
+/*
+ * kernel_write
+ *
+ * Description:
+ *     Write data to kernel memory.
+ */
+bool kernel_write(uint64_t address, const void *data, size_t size);
+
+/*
+ * kernel_read8
+ *
+ * Description:
+ *     Read a single byte from kernel memory. If the read fails, -1 is returned.
+ */
+uint8_t kernel_read8(uint64_t address);
+
+/*
+ * kernel_read16
+ *
+ * Description:
+ *     Read a 16-bit value from kernel memory. If the read fails, -1 is returned.
+ */
+uint16_t kernel_read16(uint64_t address);
+
+/*
+ * kernel_read32
+ *
+ * Description:
+ *     Read a 32-bit value from kernel memory. If the read fails, -1 is returned.
+ */
+uint32_t kernel_read32(uint64_t address);
+
+/*
+ * kernel_read64
+ *
+ * Description:
+ *     Read a 64-bit value from kernel memory. If the read fails, -1 is returned.
+ */
+uint64_t kernel_read64(uint64_t address);
+
+/*
+ * kernel_write8
+ *
+ * Description:
+ *     Write a single byte to kernel memory.
+ */
+bool kernel_write8(uint64_t address, uint8_t value);
+
+/*
+ * kernel_write16
+ *
+ * Description:
+ *     Write a 16-bit value to kernel memory.
+ */
+bool kernel_write16(uint64_t address, uint16_t value);
+
+/*
+ * kernel_write32
+ *
+ * Description:
+ *     Write a 32-bit value to kernel memory.
+ */
+bool kernel_write32(uint64_t address, uint32_t value);
+
+/*
+ * kernel_write64
+ *
+ * Description:
+ *     Write a 64-bit value to kernel memory.
+ */
+bool kernel_write64(uint64_t address, uint64_t value);
+
+/*
+ * kalloc
+ *
+ * Description:
+ *     Allocate data to kernel memory.
+ */
+uint64_t kalloc(vm_size_t size);
+
+/*
+ * kfree
+ *
+ * Description:
+ *     Free data from kernel memory.
+ */
+bool kfree(mach_vm_address_t address, vm_size_t size);
+
+/*
+ * kread
+ *
+ * Description:
+ *     Reads data from kernel memory.
+ */
+size_t kread(uint64_t where, void *p, size_t size);
+
+/*
+ * task_struct_of_pid
+ *
+ * Description:
+ *     Get tasks struc for pid.
+ */
+uint64_t task_struct_of_pid(pid_t pid);
+
+/*
+ * proc_of_pid
+ *
+ * Description:
+ *     Get proc struct for pid.
+ */
+uint64_t proc_of_pid(pid_t pid);
+
+/*
+ * verify_tfp0
+ *
+ * Description:
+ *     Verifies if we have a valid tfp0.
+ */
+bool verify_tfp0(void);
 
 #endif /* postexp_h */
