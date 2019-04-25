@@ -22,7 +22,6 @@
 		91748847225412C0008601C7 /* Unpacker.m in Sources */ = {isa = PBXBuildFile; fileRef = 91748846225412C0008601C7 /* Unpacker.m */; };
 		9174884E225413E9008601C7 /* payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 9174884C225413E9008601C7 /* payload.c */; };
 		917488562254149B008601C7 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = 917488542254149B008601C7 /* log.c */; };
-		91C5A02E226954DB0027BF91 /* jailbreakd_client.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C5A02D226954DB0027BF91 /* jailbreakd_client.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +52,6 @@
 		9174884D225413E9008601C7 /* payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payload.h; sourceTree = "<group>"; };
 		917488542254149B008601C7 /* log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
 		917488552254149B008601C7 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
-		91C5A02D226954DB0027BF91 /* jailbreakd_client.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jailbreakd_client.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +86,6 @@
 				55F5FBF421BB2C3300F3AB28 /* LaunchScreen.storyboard */,
 				55F5FBF721BB2C3300F3AB28 /* Info.plist */,
 				55F5FBF821BB2C3300F3AB28 /* main.m */,
-				91C5A02D226954DB0027BF91 /* jailbreakd_client.m */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -216,7 +213,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91C5A02E226954DB0027BF91 /* jailbreakd_client.m in Sources */,
 				917488562254149B008601C7 /* log.c in Sources */,
 				9174880E22398BC0008601C7 /* pwn.m in Sources */,
 				9174884E225413E9008601C7 /* payload.c in Sources */,
