@@ -10,3 +10,6 @@
 [submodule "sefebreak/jailbreak-resources"]
 	path = sefebreak/jailbreak-resources
 	url = git@github.com:xavo95/jailbreak-resources.git
+[submodule "sefebreak/payloads_source/libjailbreak"]
+	path = sefebreak/payloads_source/libjailbreak
+	url = git@github.com:xavo95/libjailbreak.git

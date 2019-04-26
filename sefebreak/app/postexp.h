@@ -103,6 +103,22 @@ enum post_exp_t dump_apticker(void);
  */
 void cleanup(void);
 
+/*
+ * get_vnode_at_path
+ *
+ * Description:
+ *     Get vnode pointer at path.
+ */
+uint64_t get_vnode_at_path(const char *path);
+
+/*
+ * fix_mmap
+ *
+ * Description:
+ *     Fix mmap for dylibs.
+ */
+int fix_mmap(char *path);
+
 ///////////////////////////////////////////// ADVANCED EXPORT METHODS /////////////////////////////////////////////
 
 /*
@@ -284,5 +300,61 @@ uint64_t proc_of_pid(pid_t pid);
  *     Verifies if we have a valid tfp0.
  */
 bool verify_tfp0(void);
+
+/*
+ * unlock_nvram
+ *
+ * Description:
+ *     Unlocks NVRAM for setting boot nonce.
+ */
+void unlock_nvram(void);
+
+/*
+ * lock_nvram
+ *
+ * Description:
+ *     Locks NVRAM after setting boot nonce.
+ */
+int lock_nvram(void);
+
+/*
+ * respring
+ *
+ * Description:
+ *     Restarts springboard.
+ */
+int respring(char *killall_path);
+
+/*
+ * unload_launchdeamons
+ *
+ * Description:
+ *     Unloads LaunchDaemons at path.
+ */
+int unload_launchdeamons(char *launchctl_path, char *launchdaemon_folder);
+
+/*
+ * load_launchdeamons
+ *
+ * Description:
+ *     Loads LaunchDaemons at path.
+ */
+int load_launchdeamons(char *launchctl_path, char *launchdaemon_folder);
+
+/*
+ * pid_of_proc_name
+ *
+ * Description:
+ *     Returns the pid by proc name.
+ */
+unsigned int pid_of_proc_name(char *nm);
+
+/*
+ * get_symbol_by_name
+ *
+ * Description:
+ *     Returns address of a symbol inside offsetcache.
+ */
+uint64_t get_symbol_by_name(char *name);
 
 #endif /* postexp_h */

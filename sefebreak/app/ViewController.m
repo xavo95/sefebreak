@@ -153,7 +153,7 @@ int get_hsp4_perms(int pid, char *permissions);
     add_to_trustcache("/var/containers/Bundle/iosbinpack64");
     prepare_dropbear();
     unpack_launchdeamons(ext_kernel_load_base);
-    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
+    respring("/var/containers/Bundle/iosbinpack64/usr/bin/killall");
 }
 
 - (IBAction)doCleanup:(id)sender {
@@ -162,7 +162,7 @@ int get_hsp4_perms(int pid, char *permissions);
         return;
     }
     cleanup();
-    launch("/var/containers/Bundle/iosbinpack64/usr/bin/killall", "-9", "SpringBoard", NULL, NULL, NULL, NULL, NULL);
+    respring("/var/containers/Bundle/iosbinpack64/usr/bin/killall");
 }
 
 @end

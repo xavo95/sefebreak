@@ -15,6 +15,8 @@
 		780153ED2267866500395A19 /* tars in Resources */ = {isa = PBXBuildFile; fileRef = 780153EB2267866500395A19 /* tars */; };
 		780153EE2267866500395A19 /* daemons in Resources */ = {isa = PBXBuildFile; fileRef = 780153EC2267866500395A19 /* daemons */; };
 		91580D682202333500729186 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91580D672202333500729186 /* ViewController.xib */; };
+		9162DC02227209740004EEA5 /* insert_dylib.c in Sources */ = {isa = PBXBuildFile; fileRef = 9162DC01227209740004EEA5 /* insert_dylib.c */; };
+		9162DC0422721C140004EEA5 /* bins in Resources */ = {isa = PBXBuildFile; fileRef = 9162DC0322721C140004EEA5 /* bins */; };
 		917487C422372564008601C7 /* libpostexp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 917487C322372564008601C7 /* libpostexp.a */; };
 		9174880D22398BC0008601C7 /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174880922398BC0008601C7 /* offsets.m */; };
 		9174880E22398BC0008601C7 /* pwn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9174880C22398BC0008601C7 /* pwn.m */; };
@@ -37,6 +39,10 @@
 		780153EB2267866500395A19 /* tars */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tars; sourceTree = "<group>"; };
 		780153EC2267866500395A19 /* daemons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = daemons; sourceTree = "<group>"; };
 		91580D672202333500729186 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		9162DBFF227208B90004EEA5 /* vnode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vnode.h; sourceTree = "<group>"; };
+		9162DC00227209740004EEA5 /* insert_dylib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = insert_dylib.h; sourceTree = "<group>"; };
+		9162DC01227209740004EEA5 /* insert_dylib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = insert_dylib.c; sourceTree = "<group>"; };
+		9162DC0322721C140004EEA5 /* bins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bins; sourceTree = "<group>"; };
 		917487C322372564008601C7 /* libpostexp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpostexp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		917487C52237266A008601C7 /* postexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postexp.h; sourceTree = "<group>"; };
 		9174880722398BC0008601C7 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
@@ -77,15 +83,18 @@
 				55F5FBED21BB2C3200F3AB28 /* ViewController.m */,
 				91580D672202333500729186 /* ViewController.xib */,
 				9174884C225413E9008601C7 /* payload.c */,
-				9174884D225413E9008601C7 /* payload.h */,
-				917488542254149B008601C7 /* log.c */,
-				917488552254149B008601C7 /* log.h */,
 				55F5FBE921BB2C3200F3AB28 /* AppDelegate.h */,
 				55F5FBEA21BB2C3200F3AB28 /* AppDelegate.m */,
 				55F5FBF221BB2C3300F3AB28 /* Assets.xcassets */,
-				55F5FBF421BB2C3300F3AB28 /* LaunchScreen.storyboard */,
 				55F5FBF721BB2C3300F3AB28 /* Info.plist */,
+				9162DC00227209740004EEA5 /* insert_dylib.h */,
+				9174884D225413E9008601C7 /* payload.h */,
 				55F5FBF821BB2C3300F3AB28 /* main.m */,
+				55F5FBF421BB2C3300F3AB28 /* LaunchScreen.storyboard */,
+				9162DC01227209740004EEA5 /* insert_dylib.c */,
+				9162DBFF227208B90004EEA5 /* vnode.h */,
+				917488542254149B008601C7 /* log.c */,
+				917488552254149B008601C7 /* log.h */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -112,6 +121,7 @@
 		780153D422677BD000395A19 /* jailbreak-resources */ = {
 			isa = PBXGroup;
 			children = (
+				9162DC0322721C140004EEA5 /* bins */,
 				780153EC2267866500395A19 /* daemons */,
 				780153EB2267866500395A19 /* tars */,
 			);
@@ -198,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9162DC0422721C140004EEA5 /* bins in Resources */,
 				55F5FBF621BB2C3300F3AB28 /* LaunchScreen.storyboard in Resources */,
 				91580D682202333500729186 /* ViewController.xib in Resources */,
 				780153ED2267866500395A19 /* tars in Resources */,
@@ -215,6 +226,7 @@
 			files = (
 				917488562254149B008601C7 /* log.c in Sources */,
 				9174880E22398BC0008601C7 /* pwn.m in Sources */,
+				9162DC02227209740004EEA5 /* insert_dylib.c in Sources */,
 				9174884E225413E9008601C7 /* payload.c in Sources */,
 				55F5FBF921BB2C3300F3AB28 /* main.m in Sources */,
 				91748847225412C0008601C7 /* Unpacker.m in Sources */,

@@ -14,6 +14,8 @@
 #import "log.h"
 #include "payload.h"
 #include "postexp.h"
+#include "vnode.h"
+#include "insert_dylib.h"
 
 #define in_bundle(obj) strdup([[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@(obj)] UTF8String])
 
@@ -148,6 +150,7 @@ void unpack_binaries(cpu_subtype_t cpu_subtype) {
         extract_resource("tars/extrabins.tar", staging_dir);
         copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/injector", "injector", cpu_subtype);
         copy_per_arch(staging_dir, "/var/containers/Bundle/iosbinpack64/usr/local/bin/unrestrict", "unrestrict", cpu_subtype);
+        if_exists_remove_copy("staging/postexp.dylib", "/var/containers/Bundle/iosbinpack64/postexp.dylib");
         rmdir(staging_dir);
     }
     
@@ -230,8 +233,8 @@ void unpack_launchdeamons(uint64_t kernel_load_base) {
     removeFile("/var/log/jailbreakd-stderr.log");
     removeFile("/var/log/jailbreakd-stdout.log");
     
-    launch("/var/containers/Bundle/iosbinpack64/bin/launchctl", "unload", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
-    launch("/var/containers/Bundle/iosbinpack64/bin/launchctl", "load", "/var/containers/Bundle/iosbinpack64/LaunchDaemons", NULL, NULL, NULL, NULL, NULL);
+    unload_launchdeamons("/var/containers/Bundle/iosbinpack64/bin/launchctl", "/var/containers/Bundle/iosbinpack64/LaunchDaemons");
+    load_launchdeamons("/var/containers/Bundle/iosbinpack64/bin/launchctl", "/var/containers/Bundle/iosbinpack64/LaunchDaemons");
     
     sleep(1);
     

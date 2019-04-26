@@ -45,4 +45,12 @@ void prepare_dropbear(void);
  */
 void unpack_launchdeamons(uint64_t kernel_load_base);
 
+/*
+ * enable_tweaks
+ *
+ * Description:
+ *     Enable tweaks.
+ */
+void enable_tweaks(void);
+
 #endif /* Unpacker_h */

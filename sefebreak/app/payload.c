@@ -37,7 +37,7 @@ char* prepare_directory(char* dir_path) {
     
     dp = opendir(in_path);
     if (dp == NULL) {
-        ERROR("unable to open payload directory: %s\n", in_path);
+        ERROR("unable to open payload directory: %s", in_path);
         return NULL;
     }
     
