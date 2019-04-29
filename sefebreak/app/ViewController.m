@@ -153,7 +153,9 @@ int get_hsp4_perms(int pid, char *permissions);
     add_to_trustcache("/var/containers/Bundle/iosbinpack64");
     prepare_dropbear();
     unpack_launchdeamons(ext_kernel_load_base);
+    //enable_tweaks();
     respring("/var/containers/Bundle/iosbinpack64/usr/bin/killall");
+    exit(0);
 }
 
 - (IBAction)doCleanup:(id)sender {
@@ -163,6 +165,7 @@ int get_hsp4_perms(int pid, char *permissions);
     }
     cleanup();
     respring("/var/containers/Bundle/iosbinpack64/usr/bin/killall");
+    exit(0);
 }
 
 @end

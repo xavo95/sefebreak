@@ -43,7 +43,7 @@ void prepare_dropbear(void);
  * Description:
  *     Unpack the LaunchDaemons.
  */
-void unpack_launchdeamons(uint64_t kernel_load_base);
+void unpack_launchdeamons();
 
 /*
  * enable_tweaks
